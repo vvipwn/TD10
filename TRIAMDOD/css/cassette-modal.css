@@ -1,0 +1,2352 @@
+/* ==========================================================================
+   TRIAMDOD 10 — RETRO CASSETTE TAPE AUTH & TICKET DECK MODAL
+   Design: Dual Stacked Cassette Tapes (TDK D-C60 Aesthetic)
+   - Tape A: Classic Vintage Studio Grey (เข้าสู่ระบบ / Sign In)
+   - Tape B: Special Edition Neon Hot Pink (สมัครสมาชิก & รับสิทธิ์จองบัตร)
+   - Realistic 3D Stacking, Mechanical Tape Swapping Animation
+   - Ruled Label Paper with Handwritten Pencil / Ballpoint Fields ('Mali' / 'Caveat')
+   - Screws, Guide Holes, Clear Tape Window with Spinning Spools
+   ========================================================================== */
+
+.auth-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 9, 12, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 2200;
+  display: none !important;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  overflow-y: auto;
+}
+
+.auth-modal-backdrop.active {
+  display: flex !important;
+  opacity: 1;
+  pointer-events: auto !important;
+}
+
+/* --------------------------------------------------------------------------
+   The Cassette Deck Housing Console
+   -------------------------------------------------------------------------- */
+.cassette-deck-modal {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  animation: deckSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: auto;
+}
+
+@keyframes deckSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Top Console Bar */
+.deck-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: rgba(18, 20, 26, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 8px 14px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+  flex-wrap: wrap;
+}
+
+.deck-indicator-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.deck-led-rec {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff0055;
+  box-shadow: 0 0 10px #ff0055;
+  animation: recBlink 1.8s infinite ease-in-out;
+}
+
+@keyframes recBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.deck-model-label {
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.deck-actions-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+/* Switcher Dock for Tape A, B, and C */
+.tape-selector-dock {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 3px 4px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  white-space: nowrap !important;
+}
+
+.tape-select-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  white-space: nowrap !important;
+  flex-shrink: 0;
+}
+
+.tab-tape-text {
+  white-space: nowrap !important;
+}
+
+.tab-tape-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  font-weight: 900;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.tab-tape-badge.tab-badge-c {
+  background: rgba(217, 119, 6, 0.35);
+  color: #fef3c7;
+}
+
+.tape-select-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tape-select-btn.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tape-select-btn.active .tab-tape-badge {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+/* Special Pink Badge when Tab B is active */
+.tape-select-btn[data-tab="register"].active {
+  background: #ff007f;
+  color: #ffffff;
+}
+
+.tape-select-btn[data-tab="register"].active .tab-tape-badge {
+  background: #ffffff;
+  color: #ff007f;
+}
+
+/* Special Amber/Gold Badge when Tab C is active */
+.tape-select-btn[data-tab="payment"].active {
+  background: #d97706;
+  color: #ffffff;
+}
+
+.tape-select-btn[data-tab="payment"].active .tab-tape-badge {
+  background: #ffffff;
+  color: #d97706;
+}
+
+/* Eject Button */
+.deck-eject-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.eject-text {
+  font-family: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+
+.deck-eject-btn:hover {
+  background: rgba(239, 68, 68, 0.3);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   The 3D Cassette Stacking Stage (Tapes A, B, and C)
+   -------------------------------------------------------------------------- */
+.cassette-stack-stage {
+  perspective: 1200px;
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cassette-tape-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 620px;
+  transition: transform 0.55s cubic-bezier(0.34, 1.35, 0.64, 1),
+              filter 0.4s ease,
+              opacity 0.4s ease,
+              box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+  will-change: transform, filter;
+}
+
+/* Active Tape (Front & Center) */
+.cassette-tape-card.active-front {
+  transform: translate3d(0, 0, 30px) rotate(0deg) scale(1) !important;
+  z-index: 30 !important;
+  filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.75)) !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+}
+
+/* Inactive Tapes (Stacked Behind, Peeking at an angle) */
+.cassette-tape-card.stacked-behind {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* Stacked positioning classes */
+.tape-a.stacked-behind {
+  transform: translate3d(-26px, -18px, -50px) rotate(-3.5deg) scale(0.96);
+  z-index: 20;
+  filter: brightness(0.72) contrast(0.9) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+}
+
+.tape-a.stacked-behind:hover {
+  transform: translate3d(-32px, -24px, -35px) rotate(-2.5deg) scale(0.98);
+  filter: brightness(0.9) contrast(1);
+}
+
+.tape-a.stacked-deep {
+  transform: translate3d(-48px, -32px, -90px) rotate(-6.5deg) scale(0.92);
+  z-index: 10;
+  filter: brightness(0.55) contrast(0.85);
+}
+
+.tape-a.stacked-deep:hover {
+  transform: translate3d(-52px, -36px, -70px) rotate(-5.5deg) scale(0.94);
+  filter: brightness(0.8) contrast(0.95);
+}
+
+.tape-b.stacked-behind {
+  transform: translate3d(26px, -18px, -50px) rotate(3.5deg) scale(0.96);
+  z-index: 20;
+  filter: brightness(0.72) contrast(0.9) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+}
+
+.tape-b.stacked-behind:hover {
+  transform: translate3d(32px, -24px, -35px) rotate(2.5deg) scale(0.98);
+  filter: brightness(0.9) contrast(1);
+}
+
+.tape-b.stacked-behind-left {
+  transform: translate3d(-26px, -18px, -50px) rotate(-3.5deg) scale(0.96);
+  z-index: 20;
+  filter: brightness(0.72) contrast(0.9) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+}
+
+.tape-b.stacked-behind-left:hover {
+  transform: translate3d(-32px, -24px, -35px) rotate(-2.5deg) scale(0.98);
+  filter: brightness(0.9) contrast(1);
+}
+
+.tape-c.stacked-behind {
+  transform: translate3d(26px, -18px, -50px) rotate(3.5deg) scale(0.96);
+  z-index: 20;
+  filter: brightness(0.72) contrast(0.9) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+}
+
+.tape-c.stacked-behind:hover {
+  transform: translate3d(32px, -24px, -35px) rotate(2.5deg) scale(0.98);
+  filter: brightness(0.9) contrast(1);
+}
+
+.tape-c.stacked-deep {
+  transform: translate3d(48px, -32px, -90px) rotate(6.5deg) scale(0.92);
+  z-index: 10;
+  filter: brightness(0.55) contrast(0.85);
+}
+
+.tape-c.stacked-deep:hover {
+  transform: translate3d(52px, -36px, -70px) rotate(5.5deg) scale(0.94);
+  filter: brightness(0.8) contrast(0.95);
+}
+
+/* Click hint on background tape */
+.tape-back-tap-hint {
+  display: none;
+  position: absolute;
+  top: -14px;
+  right: 28px;
+  background: #ff007f;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(255, 0, 127, 0.5);
+  animation: bounceHint 2s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.tape-a.stacked-behind .tape-back-tap-hint,
+.tape-a.stacked-deep .tape-back-tap-hint {
+  display: block;
+  right: auto;
+  left: 28px;
+  background: #0f172a;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.6);
+}
+
+.tape-b.stacked-behind .tape-back-tap-hint,
+.tape-b.stacked-behind-left .tape-back-tap-hint {
+  display: block;
+  background: #ff007f;
+}
+
+.tape-c.stacked-behind .tape-back-tap-hint,
+.tape-c.stacked-deep .tape-back-tap-hint {
+  display: block;
+  background: #d97706;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.5);
+}
+
+@keyframes bounceHint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* --------------------------------------------------------------------------
+   Physical Cassette Outer Shell
+   -------------------------------------------------------------------------- */
+.tape-shell {
+  position: relative;
+  border-radius: 14px;
+  padding: 18px 20px 24px 20px;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.35),
+              inset 0 -3px 6px rgba(0, 0, 0, 0.5),
+              0 8px 24px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  user-select: none;
+}
+
+/* Tape A Shell: Classic Vintage Studio Grey (เหมือนในรูป TDK C-60) */
+.shell-vintage-grey {
+  background: linear-gradient(180deg, #a6abb4 0%, #959aa3 30%, #838891 70%, #767a83 100%);
+  border: 1px solid #5a5d64;
+}
+
+/* Tape B Shell: Special Edition Neon Magenta / Hot Pink */
+.shell-neon-pink {
+  background: linear-gradient(180deg, #ff1a8c 0%, #e60073 35%, #cc0066 70%, #99004d 100%);
+  border: 1px solid #73003a;
+  box-shadow: inset 0 2px 4px rgba(255, 200, 230, 0.5),
+              inset 0 -3px 6px rgba(0, 0, 0, 0.6),
+              0 0 30px rgba(255, 0, 127, 0.25);
+}
+
+/* 5 Metallic Screws with Philips Slots */
+.tape-screw {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #cbd5e1 45%, #64748b 85%, #334155 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7), inset 0 0.5px 1px #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.tape-screw::before,
+.tape-screw::after {
+  content: '';
+  position: absolute;
+  background: #334155;
+}
+
+.tape-screw::before {
+  width: 8px;
+  height: 1.5px;
+}
+
+.tape-screw::after {
+  width: 1.5px;
+  height: 8px;
+}
+
+.screw-tl { top: 10px; left: 10px; transform: rotate(18deg); }
+.screw-tr { top: 10px; right: 10px; transform: rotate(72deg); }
+.screw-bl { bottom: 10px; left: 10px; transform: rotate(45deg); }
+.screw-br { bottom: 10px; right: 10px; transform: rotate(110deg); }
+.screw-bottom-mid { bottom: 8px; left: 50%; transform: translateX(-50%) rotate(30deg); }
+
+/* --------------------------------------------------------------------------
+   Cassette Paper Label (The Mixtape Ruled Paper)
+   -------------------------------------------------------------------------- */
+.tape-paper-label {
+  position: relative;
+  background: #faf7ee;
+  border-radius: 8px;
+  padding: 16px 20px 14px 20px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tape-paper-label.label-warm-cream {
+  background: #fffdf7;
+}
+
+/* Label Top Header Row */
+.label-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.08);
+  padding-bottom: 8px;
+}
+
+/* Side A / Side B Badge Box */
+.side-badge-box {
+  width: 34px;
+  height: 34px;
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 1.4rem;
+  font-weight: 900;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.side-badge-box.side-b {
+  background: #ff007f;
+}
+
+.label-title-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.brand-code-print {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #0f172a;
+  line-height: 1.1;
+}
+
+.brand-sub-print {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.02em;
+}
+
+.label-tech-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.tech-tag {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #475569;
+  letter-spacing: 0.06em;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+.tech-tag.pink-tag {
+  color: #be123c;
+  background: rgba(255, 0, 127, 0.08);
+}
+
+/* Vintage Racing Stripe Under Label */
+.tape-racing-stripe {
+  display: flex;
+  flex-direction: column;
+  height: 6px;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: -6px;
+  margin-bottom: 2px;
+}
+
+.stripe-bar {
+  height: 3px;
+  width: 100%;
+}
+
+.stripe-red { background: #e11d48; }
+.stripe-black { background: #0f172a; }
+.stripe-magenta { background: #ff007f; }
+.stripe-silver { background: #94a3b8; }
+
+/* --------------------------------------------------------------------------
+   Handwritten Pencil & Pen Form on Ruled Tape Lines
+   -------------------------------------------------------------------------- */
+.tape-pencil-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pencil-field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+}
+
+.pencil-fields-dual-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pencil-field-half {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+}
+
+.pencil-guide-label {
+  font-family: var(--font-pridi), serif;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #334155;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lbl-track {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #94a3b8;
+}
+
+.pencil-input-wrap {
+  position: relative;
+  width: 100%;
+}
+
+/* Form Input & Select (Pridi Font as requested) */
+.pencil-input,
+.pencil-select {
+  width: 100%;
+  padding: 6px 4px 6px 2px;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px dashed rgba(100, 116, 139, 0.45);
+  font-family: var(--font-pridi), serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.2s ease;
+  border-radius: 0;
+  line-height: 1.35;
+}
+
+.pencil-input::placeholder {
+  font-family: var(--font-pridi), serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: rgba(100, 116, 139, 0.55);
+  font-style: normal;
+}
+
+.pencil-input:focus,
+.pencil-select:focus {
+  border-bottom-color: #ff007f;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  background: rgba(255, 0, 127, 0.03);
+}
+
+.pencil-select {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.pencil-select option {
+  font-family: var(--font-pridi), serif;
+  font-size: 0.95rem;
+  color: #0f172a;
+  background: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Center Tape Window with Spools
+   -------------------------------------------------------------------------- */
+.tape-window-compartment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 0 2px 0;
+}
+
+.tape-window-frame {
+  width: 100%;
+  max-width: 280px;
+  height: 52px;
+  background: #111317;
+  border: 2px solid #5a5f6b;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  position: relative;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+.tape-window-frame.pink-window {
+  border-color: #99004d;
+  background: #1a0814;
+}
+
+/* Spool Gears */
+.tape-reel-spool {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  transition: transform 0.4s linear;
+}
+
+.spool-cog {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #111317;
+  position: relative;
+}
+
+.spool-cog::before,
+.spool-cog::after {
+  content: '';
+  position: absolute;
+  background: #ffffff;
+}
+
+.spool-cog::before {
+  top: 50%;
+  left: -4px;
+  right: -4px;
+  height: 3px;
+  transform: translateY(-50%);
+}
+
+.spool-cog::after {
+  left: 50%;
+  top: -4px;
+  bottom: -4px;
+  width: 3px;
+  transform: translateX(-50%);
+}
+
+/* Spinning Animation for Reels */
+.spinning .tape-reel-spool {
+  animation: reelSpin 2s linear infinite;
+}
+
+@keyframes reelSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Center Magnetic Ribbon & Stamp */
+.tape-magnetic-ribbon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #2a1b14 0%, #3e271d 50%, #2a1b14 100%);
+  height: 14px;
+  flex: 1;
+  margin: 0 10px;
+  border-radius: 2px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.tape-counter-stamp {
+  font-family: 'Space Groตะ', 'VT323', monospace;
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: #fbbf24;
+  letter-spacing: 0.1em;
+}
+
+/* --------------------------------------------------------------------------
+   Tape Footer Actions (Tactile Cassette Play/Rec Buttons)
+   -------------------------------------------------------------------------- */
+.tape-footer-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tape-meta-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-stamp {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #475569;
+}
+
+.meta-sub {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+/* Mechanical Cassette Action Button */
+.btn-tape-mechanical {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.btn-play-action {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #ffffff;
+  border: 1px solid #334155;
+}
+
+.btn-play-action:hover {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.35);
+}
+
+.btn-rec-action {
+  background: linear-gradient(135deg, #ff007f 0%, #e11d48 100%);
+  color: #ffffff;
+  border: 1px solid #be123c;
+  box-shadow: 0 4px 18px rgba(255, 0, 127, 0.35);
+}
+
+.btn-rec-action:hover {
+  background: linear-gradient(135deg, #ff1a8c 0%, #f43f5e 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 0, 127, 0.5);
+}
+
+.rec-dot {
+  color: #ffffff;
+  font-size: 1.1rem;
+  animation: pulseDot 1.4s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* --------------------------------------------------------------------------
+   Trapezoid Cassette Bottom Chin
+   -------------------------------------------------------------------------- */
+.tape-trapezoid-chin {
+  position: relative;
+  width: 64%;
+  height: 22px;
+  margin: 10px auto -6px auto;
+  background: #6e727a;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 24px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.tape-trapezoid-chin.pink-chin {
+  background: #99004d;
+}
+
+.chin-roller-hole {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #111317;
+  box-shadow: inset 0 1px 2px #000000;
+}
+
+.chin-drive-hole {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #111317;
+  box-shadow: inset 0 1px 2px #000000;
+}
+
+/* ==========================================================================
+   TAPE C : AMBER GOLD SHELL & PROMPTPAY PAYMENT / SLIP UPLOAD
+   ========================================================================== */
+.shell-gold-amber {
+  background: linear-gradient(145deg, #241c0e 0%, #171309 50%, #291f0e 100%);
+  border: 3px solid #d97706;
+  box-shadow: 0 0 25px rgba(217, 119, 6, 0.22), inset 0 2px 4px rgba(251, 191, 36, 0.3);
+}
+
+.shell-gold-amber .tape-screw {
+  background: radial-gradient(circle, #fde68a 0%, #d97706 70%, #92400e 100%);
+}
+
+.gold-chin {
+  background: linear-gradient(180deg, #1f170c 0%, #151007 100%);
+  border-top: 2px solid #b45309;
+}
+
+.gold-chin .chin-roller-hole {
+  background: #0d0a05;
+  border: 2px solid #78350f;
+}
+
+.gold-chin .chin-drive-hole {
+  background: #0d0a05;
+  border: 1px solid #78350f;
+}
+
+.label-gold-cream {
+  background: #fffdf7;
+  border: 1px solid #d97706;
+}
+
+.side-badge-box.side-c {
+  background: #d97706;
+  color: #ffffff;
+}
+
+.gold-tag {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #f59e0b;
+}
+
+.stripe-bar.stripe-amber {
+  background: #f59e0b;
+}
+
+.stripe-bar.stripe-gold {
+  background: #d97706;
+}
+
+/* Tape C: View 1 - Payment & Slip Deck */
+.tape-payment-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.payment-flex-deck {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.promptpay-qr-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.promptpay-card-header {
+  width: 100%;
+  background: linear-gradient(135deg, #003b70 0%, #001f3f 100%);
+  color: #ffffff;
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.promptpay-brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  text-align: left;
+}
+
+.pp-title {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.pp-sub {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+}
+
+.thai-qr-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.promptpay-qr-image-wrap {
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.promptpay-qr-svg {
+  width: 128px;
+  height: 128px;
+  display: block;
+}
+
+.promptpay-info-group {
+  padding: 4px 8px 8px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  border-top: 1px solid #f1f5f9;
+}
+
+.pp-amount-badge {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.82rem;
+  color: #0f172a;
+}
+
+.pp-bold {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #003b70;
+}
+
+.pp-account-name {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.65rem;
+  color: #475569;
+  line-height: 1.2;
+}
+
+.pp-account-id {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Slip Uploader Card */
+.slip-uploader-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.slip-guide-title {
+  font-family: var(--font-pridi), serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.slip-dropzone {
+  flex: 1;
+  min-height: 130px;
+  border: 2px dashed #d97706;
+  border-radius: 8px;
+  background: rgba(217, 119, 6, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.slip-dropzone:hover,
+.slip-dropzone.drag-over {
+  background: rgba(217, 119, 6, 0.1);
+  border-color: #b45309;
+}
+
+.slip-hidden-file {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+
+.slip-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.slip-icon-badge {
+  font-size: 1.6rem;
+}
+
+.slip-cta-text {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #92400e;
+}
+
+.slip-hint-text {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.74rem;
+  color: #78350f;
+  opacity: 0.8;
+}
+
+/* Slip Preview State */
+.slip-preview-state {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  z-index: 6;
+}
+
+.slip-thumbnail-img {
+  width: 72px;
+  height: 88px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 2px solid #d97706;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.slip-preview-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.slip-badge-ok {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #15803d;
+  background: #dcfce7;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.slip-name-label {
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', monospace;
+  font-size: 0.74rem;
+  color: #475569;
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-slip-reselect {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.75rem;
+  color: #b45309;
+  background: transparent;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+}
+
+.slip-rules-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.74rem;
+  color: #78350f;
+  line-height: 1.35;
+  background: #fffbeb;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #fef3c7;
+}
+
+.notice-pin {
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+/* Tape Button Back */
+.btn-tape-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: #e2e8f0;
+  color: #334155;
+  border: none;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-tape-back:hover {
+  background: #cbd5e1;
+  color: #0f172a;
+}
+
+.btn-pay-confirm {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.4) !important;
+}
+
+.btn-pay-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(217, 119, 6, 0.5) !important;
+}
+
+/* Tape C: View 2 - Pending Approval State */
+.tape-approval-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.approval-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.approval-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d97706;
+  box-shadow: 0 0 8px #d97706;
+  animation: pulseAmber 1.4s infinite ease-in-out;
+}
+
+@keyframes pulseAmber {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.3); }
+}
+
+.approval-badge-txt {
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #92400e;
+  letter-spacing: 0.05em;
+}
+
+.approval-council-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.approval-council-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.approval-council-text {
+  text-align: left;
+}
+
+.approval-title {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.approval-council-sub {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.74rem;
+  color: #64748b;
+  margin: 2px 0 0 0;
+}
+
+.approval-callout-box {
+  background: #fefce8;
+  border-left: 4px solid #ca8a04;
+  padding: 10px 14px;
+  border-radius: 0 6px 6px 0;
+  text-align: left;
+}
+
+.callout-strong {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #854d0e;
+  margin-bottom: 4px;
+}
+
+.callout-sub {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.8rem;
+  color: #713f12;
+  line-height: 1.45;
+}
+
+.approval-summary-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: #ffffff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.summary-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.summary-cell.cell-full {
+  grid-column: 1 / -1;
+  border-top: 1px dashed #e2e8f0;
+  padding-top: 6px;
+  margin-top: 2px;
+}
+
+.summary-key {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+.summary-val {
+  font-family: var(--font-pridi), serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.summary-slip-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.summary-thumb-img {
+  width: 44px;
+  height: 54px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+}
+
+.summary-slip-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.slip-ok-text {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #15803d;
+}
+
+.slip-time-text {
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', monospace;
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Design for Cassette Modal
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .cassette-deck-modal {
+    max-width: 100%;
+  }
+
+  .deck-top-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .deck-indicator-wrap {
+    justify-content: center;
+  }
+
+  .deck-actions-wrap {
+    justify-content: space-between;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  .tape-selector-dock {
+    flex: 1;
+    overflow-x: auto;
+  }
+
+  .tape-select-btn {
+    padding: 6px 8px;
+    font-size: 0.74rem;
+  }
+
+  .cassette-stack-stage {
+    min-height: 540px;
+  }
+
+  .cassette-tape-card {
+    max-width: 95vw;
+  }
+
+  .tape-shell {
+    padding: 14px 12px 18px 12px;
+  }
+
+  .tape-paper-label {
+    padding: 12px 12px 10px 12px;
+  }
+
+  .pencil-fields-dual-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .payment-flex-deck {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .promptpay-qr-card {
+    max-width: 220px;
+    margin: 0 auto;
+  }
+
+  .approval-summary-card {
+    grid-template-columns: 1fr;
+  }
+
+  .tape-footer-action-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .btn-tape-mechanical {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .tape-meta-info {
+    text-align: center;
+  }
+
+  /* Reduce 3D shift on mobile */
+  .tape-a.stacked-behind,
+  .tape-a.stacked-deep {
+    transform: translate3d(-12px, -12px, -25px) rotate(-2deg) scale(0.96);
+  }
+
+  .tape-b.stacked-behind,
+  .tape-b.stacked-behind-left {
+    transform: translate3d(12px, -12px, -25px) rotate(2deg) scale(0.96);
+  }
+
+  .tape-c.stacked-behind,
+  .tape-c.stacked-deep {
+    transform: translate3d(12px, -12px, -25px) rotate(2deg) scale(0.96);
+  }
+}
+
+/* ==========================================================================
+   GOOGLE AUTH & REGISTRATION STYLES
+   ========================================================================== */
+.google-auth-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.btn-google-auth {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+  padding: 9px 16px;
+  background: #ffffff;
+  color: #1f2937;
+  border: 1.5px solid #d1d5db;
+  border-radius: 999px;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.btn-google-auth:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+.btn-google-hero {
+  max-width: 360px;
+  padding: 12px 22px;
+  font-size: 0.98rem;
+  background: #ffffff;
+  border: 2px solid #3b82f6;
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.2);
+}
+
+.btn-google-hero:hover {
+  background: #f0f7ff;
+  border-color: #2563eb;
+}
+
+.auth-or-divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.72rem;
+  color: #64748b;
+  margin: 4px 0;
+}
+
+.auth-or-divider::before,
+.auth-or-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #cbd5e1;
+}
+
+.auth-or-divider span {
+  padding: 0 10px;
+}
+
+/* Tape B Google Sign-Up View */
+.google-signup-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 4px;
+}
+
+.google-rule-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  margin-top: 4px;
+  text-align: left;
+}
+
+.rule-chip-box {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1.5px solid #e2e8f0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.rule-student {
+  border-color: #93c5fd;
+  background: #f0f7ff;
+}
+
+.rule-alumni {
+  border-color: #fed7aa;
+  background: #fffaf0;
+}
+
+.rule-chip-tag {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: inline-block;
+  align-self: flex-start;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.tag-student {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.tag-alumni {
+  background: #d97706;
+  color: #ffffff;
+}
+
+.rule-chip-body {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.8rem;
+  color: #1e293b;
+  line-height: 1.35;
+}
+
+.rule-small-hint {
+  font-size: 0.72rem;
+  color: #64748b;
+  display: block;
+  margin-top: 2px;
+}
+
+/* Student Confirmed Card */
+.student-verified-strip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  color: #15803d;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.verified-icon {
+  background: #15803d;
+  color: #ffffff;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+}
+
+.student-info-card {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.info-line-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.info-dual-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.info-k {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.78rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.info-v {
+  font-family: var(--font-pridi), serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.highlight-v {
+  font-size: 1.05rem;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+.mono-v {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.78rem;
+  color: #334155;
+  background: #f1f5f9;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  word-break: break-all;
+}
+
+.info-auth-badge {
+  background: #f1f5f9;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.72rem;
+  color: #475569;
+  margin-top: 4px;
+}
+
+/* Alumni Google Strip */
+.alumni-google-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  color: #92400e;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.alumni-acc-email {
+  font-weight: 700;
+  color: #78350f;
+}
+
+/* ==========================================================================
+   PACKAGE MATRIX (TAPE C)
+   ========================================================================== */
+.package-selection-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1.5px dashed #cbd5e1;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  text-align: left;
+  flex-wrap: wrap;
+}
+
+.pkg-header-kicker {
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #b45309;
+  letter-spacing: 0.05em;
+  display: block;
+}
+
+.pkg-header-title {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 1px 0 0 0;
+}
+
+.pkg-delivery-badge {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  background: #fef9c3;
+  color: #854d0e;
+  border: 1px solid #fef08a;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.package-cards-matrix {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.pkg-choice-card {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  position: relative;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.pkg-choice-card:hover {
+  border-color: #ff007f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 0, 127, 0.15);
+}
+
+.pkg-choice-card.active {
+  border-color: #d97706;
+  background: #fffbeb;
+  outline: 2px solid #d97706;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.25);
+}
+
+.pkg-choice-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.pkg-choice-name {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.25;
+}
+
+.pkg-choice-price {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #b45309;
+  white-space: nowrap;
+}
+
+.pkg-choice-desc {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.68rem;
+  color: #64748b;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* Shirt Customizer Box */
+.shirt-customizer-box {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.customizer-options-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.customizer-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.customizer-label {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.customizer-pill-group {
+  display: flex;
+  gap: 4px;
+}
+
+.cust-pill {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cust-pill:hover {
+  border-color: #ff007f;
+  color: #ff007f;
+}
+
+.cust-pill.active {
+  background: #1e293b;
+  border-color: #1e293b;
+  color: #ffffff;
+}
+
+.highlight-val {
+  font-weight: 700 !important;
+  color: #b45309 !important;
+}
+
+.summary-sub-detail {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.75rem;
+  color: #64748b;
+  display: block;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   GOOGLE ACCOUNT SELECTOR MODAL
+   ========================================================================== */
+.google-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.google-modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.google-dialog-card {
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+  position: relative;
+  animation: googlePop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes googlePop {
+  from { opacity: 0; transform: scale(0.92) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.google-dialog-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.google-dialog-title {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #202124;
+}
+
+.google-dialog-sub {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.85rem;
+  color: #5f6368;
+}
+
+.google-account-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.google-account-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1.5px solid #dadce0;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  background: #ffffff;
+}
+
+.google-account-item:hover {
+  background: #f8f9fa;
+  border-color: #1a73e8;
+  box-shadow: 0 2px 8px rgba(26, 115, 232, 0.12);
+  transform: translateY(-1px);
+}
+
+.google-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.student-avatar {
+  background: #1a73e8;
+}
+
+.alumni-avatar {
+  background: #e37400;
+}
+
+.google-acc-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.acc-name {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #202124;
+}
+
+.acc-email {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  color: #5f6368;
+}
+
+.acc-role-badge {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.68rem;
+  color: #1a73e8;
+  font-weight: 600;
+  margin-top: 1px;
+}
+
+.acc-role-badge.alumni {
+  color: #e37400;
+}
+
+.acc-arrow {
+  font-size: 1.1rem;
+  color: #9aa0a6;
+}
+
+.google-custom-box {
+  border-top: 1px solid #dadce0;
+  padding-top: 12px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.custom-email-lbl {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #3c4043;
+}
+
+.custom-email-input-row {
+  display: flex;
+  gap: 6px;
+}
+
+.google-custom-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.88rem;
+  color: #202124;
+  outline: none;
+}
+
+.google-custom-input:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+.btn-custom-email-submit {
+  padding: 8px 16px;
+  background: #1a73e8;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-custom-email-submit:hover {
+  background: #1557b0;
+}
+
+.custom-email-hint {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.72rem;
+  color: #70757a;
+}
+
+.google-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #dadce0;
+  padding-top: 12px;
+}
+
+.btn-google-cancel {
+  background: transparent;
+  border: 1px solid #dadce0;
+  color: #5f6368;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-google-cancel:hover {
+  background: #f1f3f4;
+  color: #202124;
+}
+
+/* Real Google OAuth 2.0 Integration Styles */
+.google-real-action-box {
+  margin-bottom: 12px;
+}
+
+.btn-google-real-connect {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1.5px solid #4285f4;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(66, 133, 244, 0.22);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1a73e8;
+}
+
+.btn-google-real-connect:hover {
+  background: #f8faff;
+  box-shadow: 0 4px 14px rgba(66, 133, 244, 0.35);
+  transform: translateY(-1px);
+}
+
+.google-oauth-config-box {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 10px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.oauth-config-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.oauth-config-status {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.74rem;
+  color: #475569;
+}
+
+.oauth-config-status b {
+  color: #d97706;
+}
+
+.oauth-config-status b.connected {
+  color: #16a34a;
+}
+
+.btn-toggle-config {
+  background: transparent;
+  border: 1px solid #94a3b8;
+  color: #475569;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-toggle-config:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.oauth-input-lbl {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.oauth-input-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.oauth-client-input {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  outline: none;
+}
+
+.oauth-client-input:focus {
+  border-color: #2563eb;
+}
+
+.btn-save-client-id {
+  padding: 6px 14px;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.oauth-guide-hint {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.68rem;
+  color: #64748b;
+  line-height: 1.3;
+}
+
+.student-real-avatar-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #3b82f6;
+  margin-left: auto;
+}
+
+@media (max-width: 680px) {
+  .google-rule-box {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .package-cards-matrix {
+    grid-template-columns: 1fr;
+  }
+  .google-dialog-card {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+}

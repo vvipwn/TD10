@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRIAMDOD 10 — ระบบจัดการหลังบ้าน • สภานักเรียน (BACKOFFICE)</title>
+  
+  <!-- Google Fonts: Editorial Serif + IBM Plex Sans Thai + Mali + Pridi + Space Grotesk + VT323 (ครบเซ็ตตาม index.html) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@600;700&family=Cinzel:wght@400;600;700;900&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Italiana&family=Mali:wght@400;500;600;700&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Pridi:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700;800&family=Taviraj:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Trirong:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
+  
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Project Master Stylesheet & Admin Specific Overrides -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- Film Grain Overlay & Ambient Atmosphere (จากธีมเดิมของเว็บ) -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <!-- Y2K Silver Chrome Rotating Stars Background (ธีมเดิมของเว็บ) -->
+  <div class="y2k-decorations-layer" aria-hidden="true">
+    <div class="y2k-shape shape-star-large" id="bgStar1">
+      <svg viewBox="0 0 100 100" class="svg-chrome-star">
+        <defs>
+          <linearGradient id="silverChromeGradAdmin1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="25%" stop-color="#a8b2c1" />
+            <stop offset="45%" stop-color="#ffffff" />
+            <stop offset="70%" stop-color="#5a6275" />
+            <stop offset="90%" stop-color="#e2e8f0" />
+            <stop offset="100%" stop-color="#8a94a6" />
+          </linearGradient>
+        </defs>
+        <polygon points="50,0 54,38 90,14 62,46 100,50 62,54 90,86 54,62 50,100 46,62 10,86 38,54 0,50 38,46 10,14 46,38" fill="url(#silverChromeGradAdmin1)" />
+      </svg>
+    </div>
+
+    <div class="y2k-shape shape-sparkle-8pt" style="top: 25%; right: 4%;">
+      <svg viewBox="0 0 100 100" class="svg-chrome-star">
+        <polygon points="50,0 55,35 85,15 65,45 100,50 65,55 85,85 55,65 50,100 45,65 15,85 35,55 0,50 35,45 15,15 45,35" fill="url(#silverChromeGradAdmin1)" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       1. SECURITY GATE // ตลับคาสเซ็ตต์มาสเตอร์ล็อกรหัสผ่านสภานักเรียน
+       ========================================================================== -->
+  <div class="admin-lock-screen" id="adminLockScreen">
+    <div class="master-cassette-box">
+      <!-- 4 Metallic Corner Screws -->
+      <span class="master-screw screw-tl"></span>
+      <span class="master-screw screw-tr"></span>
+      <span class="master-screw screw-bl"></span>
+      <span class="master-screw screw-br"></span>
+
+      <!-- Cassette Vintage Cream Paper Label -->
+      <div class="master-paper-label">
+        <div class="label-header-flex">
+          <div class="master-side-badge">M</div>
+          <div class="label-title-stack">
+            <span class="master-brand-code">TRIAMDOD 10 // MASTER DECK</span>
+            <span class="master-brand-sub">STUDENT COUNCIL CENTRAL VERIFICATION PASS</span>
+          </div>
+          <span class="master-tech-tag">PASSCODE LOCKED</span>
+        </div>
+
+        <!-- Racing Stripe -->
+        <div class="label-racing-stripe">
+          <span class="stripe-line red"></span>
+          <span class="stripe-line black"></span>
+          <span class="stripe-line gold"></span>
+        </div>
+
+        <!-- Magnetic Tape Window with Counter -->
+        <div class="lock-tape-window">
+          <div class="reel-spool-mini"></div>
+          <span class="lock-window-counter">DECK 2569 // VERIFIED</span>
+          <div class="reel-spool-mini"></div>
+        </div>
+
+        <!-- Form: Handwritten Pencil Inputs on Ruled Line -->
+        <form id="adminLoginForm" class="lock-pencil-form">
+          <label for="adminPasscodeInput" class="pencil-field-lbl">
+            <span class="lbl-rec-tag">REC //</span> รหัสผ่านสภานักเรียน (Council Master Key) :
+          </label>
+          <input type="password" id="adminPasscodeInput" class="pencil-ruled-input" placeholder="พิมพ์รหัสผ่านเพื่อปลดล็อก..." required autocomplete="current-password">
+
+          <button type="submit" class="btn-cassette-rec-submit" id="btnAdminLogin">
+            <span>ปลดล็อกเข้าสู่ระบบสภานักเรียน</span>
+          </button>
+
+          <p class="lock-helper-text">
+            * รหัสผ่านเริ่มต้นสำหรับทดสอบระบบ: <code>tun10admin</code>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       2. MAIN ADMIN DASHBOARD WORKSPACE
+       ========================================================================== -->
+  <div class="admin-app" id="adminApp" style="display: none;">
+    
+    <!-- Top Sticky Navbar (ธีมเดียวกับ site-navbar.css) -->
+    <header class="admin-navbar">
+      <div class="nav-brand-group">
+        <span class="nav-brand-badge">TRIAMDOD 10</span>
+        <div class="nav-title-stack">
+          <span class="nav-main-title">CONCERT PASS // BACKOFFICE</span>
+          <span class="nav-sub-title">ระบบตรวจสอบและอนุมัติสลิปโอนเงิน • คณะกรรมการสภานักเรียน ร.ร.เตรียมอุดมศึกษาน้อมเกล้า</span>
+        </div>
+      </div>
+
+      <div class="nav-actions-group">
+        <div class="nav-live-indicator">
+          <span class="live-dot"></span>
+          <span>LIVE • SECURE DECK</span>
+        </div>
+
+        <a href="index.html" class="btn-nav-outline" target="_blank" title="เปิดหน้าเว็บหลัก">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          <span>เปิดหน้าเว็บหลัก</span>
+        </a>
+
+        <button type="button" class="btn-nav-outline btn-nav-danger" id="btnLogoutAdmin" title="ออกจากระบบ">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>ออกจากระบบ</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Workspace -->
+    <main class="admin-workspace">
+
+      <!-- 3. KPI Statistics Overview Grid (สไตล์บัตรโทรศัพท์และตลับเทป) -->
+      <section class="kpi-cards-grid">
+        <!-- KPI 1: Approved Total Revenue -->
+        <div class="kpi-card card-emerald">
+          <div class="kpi-top-row">
+            <span class="kpi-label">ยอดเงินที่อนุมัติแล้ว</span>
+            <span class="kpi-badge badge-emerald">APPROVED</span>
+          </div>
+          <div class="kpi-val" id="kpiTotalRevenue">฿0.00</div>
+          <div class="kpi-meta" id="kpiRevenueMeta">จากคำสั่งซื้อที่ตรวจสอบสลิปผ่านแล้ว</div>
+        </div>
+
+        <!-- KPI 2: Total Registrations -->
+        <div class="kpi-card card-cyan">
+          <div class="kpi-top-row">
+            <span class="kpi-label">คำขอลงทะเบียนทั้งหมด</span>
+            <span class="kpi-badge badge-cyan">ALL RECORDS</span>
+          </div>
+          <div class="kpi-val" id="kpiTotalOrders">0</div>
+          <div class="kpi-meta" id="kpiOrdersRatioMeta">นักเรียน 0 คน • ศิษย์เก่า 0 คน</div>
+        </div>
+
+        <!-- KPI 3: Pending Review Slips -->
+        <div class="kpi-card card-amber">
+          <div class="kpi-top-row">
+            <span class="kpi-label">รอตรวจสอบสลิป</span>
+            <span class="kpi-badge badge-amber" id="kpiPendingBadge">0 รายการ</span>
+          </div>
+          <div class="kpi-val" id="kpiPendingOrders">0</div>
+          <div class="kpi-meta">สภานักเรียนต้องตรวจสอบและกดยืนยัน</div>
+        </div>
+
+        <!-- KPI 4: Rejected Slips -->
+        <div class="kpi-card card-rose">
+          <div class="kpi-top-row">
+            <span class="kpi-label">สลิปไม่ผ่าน / ปฏิเสธ</span>
+            <span class="kpi-badge badge-rose">REJECTED</span>
+          </div>
+          <div class="kpi-val" id="kpiRejectedOrders">0</div>
+          <div class="kpi-meta">ยอดไม่ตรง หรือสลิปไม่ถูกต้อง</div>
+        </div>
+      </section>
+
+      <!-- 4. Detailed T-Shirt Stock Inventory Panel -->
+      <section class="tshirt-inventory-panel">
+        <div class="inventory-header">
+          <div class="inventory-title-group">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff007f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path>
+            </svg>
+            <h3 class="inventory-title">สรุปยอดสั่งผลิตเสื้อยืดคอนเสิร์ต // PRODUCTION CRATE</h3>
+          </div>
+          <div class="inventory-pill-sum" id="kpiTotalShirts">รวมทั้งหมด: 0 ตัว</div>
+        </div>
+
+        <div class="inventory-columns-grid">
+          <!-- Color 1: Dark Brown Espresso -->
+          <div class="shirt-color-box">
+            <div class="shirt-color-heading heading-brown">
+              <span>สีน้ำตาลเข้ม Espresso</span>
+              <span id="sumBrownTotal">0 ตัว</span>
+            </div>
+            <div class="size-counts-row">
+              <div class="size-count-chip"><span class="size-label">S</span><span class="size-val" id="cntBrownS">0</span></div>
+              <div class="size-count-chip"><span class="size-label">M</span><span class="size-val" id="cntBrownM">0</span></div>
+              <div class="size-count-chip"><span class="size-label">L</span><span class="size-val" id="cntBrownL">0</span></div>
+              <div class="size-count-chip"><span class="size-label">XL</span><span class="size-val" id="cntBrownXL">0</span></div>
+              <div class="size-count-chip"><span class="size-label">2XL</span><span class="size-val" id="cntBrown2XL">0</span></div>
+            </div>
+          </div>
+
+          <!-- Color 2: Sand Beige -->
+          <div class="shirt-color-box">
+            <div class="shirt-color-heading heading-beige">
+              <span>สีเนื้อ Sand Beige</span>
+              <span id="sumBeigeTotal">0 ตัว</span>
+            </div>
+            <div class="size-counts-row">
+              <div class="size-count-chip"><span class="size-label">S</span><span class="size-val" id="cntBeigeS">0</span></div>
+              <div class="size-count-chip"><span class="size-label">M</span><span class="size-val" id="cntBeigeM">0</span></div>
+              <div class="size-count-chip"><span class="size-label">L</span><span class="size-val" id="cntBeigeL">0</span></div>
+              <div class="size-count-chip"><span class="size-label">XL</span><span class="size-val" id="cntBeigeXL">0</span></div>
+              <div class="size-count-chip"><span class="size-label">2XL</span><span class="size-val" id="cntBeige2XL">0</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Filters, Search & Action Toolbar -->
+      <section class="admin-toolbar">
+        <div class="toolbar-upper-row">
+          <!-- Search Box -->
+          <div class="search-input-wrap">
+            <span class="search-icon-symbol">></span>
+            <input type="text" id="adminSearchInput" class="admin-search-input" placeholder="ค้นหาด้วยชื่อ, รหัสนักเรียน (เช่น 25784), ห้อง, หรือเบอร์โทร...">
+          </div>
+
+          <!-- Status Filter -->
+          <select id="filterStatus" class="filter-select" title="กรองตามสถานะ">
+            <option value="all">สถานะทั้งหมด</option>
+            <option value="pending">รอตรวจสอบ (Pending)</option>
+            <option value="approved">อนุมัติแล้ว (Approved)</option>
+            <option value="rejected">ปฏิเสธสลิป (Rejected)</option>
+          </select>
+
+          <!-- Role Filter -->
+          <select id="filterRole" class="filter-select" title="กรองตามกลุ่ม">
+            <option value="all">กลุ่มผู้ใช้ทั้งหมด</option>
+            <option value="student-current">นักเรียนปัจจุบัน (ทั้งหมด)</option>
+            <option value="student-m4">นักเรียน ม.4</option>
+            <option value="student-m5">นักเรียน ม.5</option>
+            <option value="student-m6">นักเรียน ม.6</option>
+            <option value="alumni">ศิษย์เก่าเตรียมน้อม</option>
+          </select>
+
+          <!-- Package Filter -->
+          <select id="filterPackage" class="filter-select" title="กรองตามแพ็กเกจ">
+            <option value="all">แพ็กเกจทั้งหมด</option>
+            <option value="99">บัตรเข้างาน 99.-</option>
+            <option value="129">บัตร+ของที่ระลึก 129.-</option>
+            <option value="359">บัตร+เสื้อ+ของที่ระลึก 359.-</option>
+            <option value="329">เสื้อศิษย์เก่า 329.-</option>
+            <option value="359-alumni">เสื้อ+ของที่ระลึกศิษย์เก่า 359.-</option>
+          </select>
+
+          <!-- Action Buttons Cluster -->
+          <div class="toolbar-buttons-cluster">
+            <button type="button" class="btn-tool btn-tool-export" id="btnExportCsv" title="ดาวน์โหลดไฟล์ CSV สำหรับ Excel">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>ส่งออก CSV</span>
+            </button>
+
+            <button type="button" class="btn-tool btn-tool-demo" id="btnSeedDemoData" title="สร้างข้อมูลจำลองเพื่อทดสอบระบบ">
+              <span>+ ข้อมูลจำลอง</span>
+            </button>
+
+            <button type="button" class="btn-tool btn-tool-reset" id="btnResetData" title="ล้างข้อมูลทั้งหมด">
+              <span>ล้างข้อมูล</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Orders Master Table (สไตล์ Tracklist สมุดทะเบียนสภานักเรียน) -->
+      <section class="orders-table-wrapper">
+        <div class="table-header-strip">
+          <div class="table-count-info" id="tableCountInfo">
+            แสดงรายการ: <b>0</b> รายการ
+          </div>
+          <div class="table-sort-hint">
+            * สภานักเรียนสามารถคลิกที่ปุ่ม [ดูสลิป] เพื่อเปิดรูปตรวจยอดเงินและกดอนุมัติได้ทันที
+          </div>
+        </div>
+
+        <div class="table-scroll-container">
+          <table class="admin-data-table" id="ordersTable">
+            <thead>
+              <tr>
+                <th>เวลาส่งคำขอ / ID</th>
+                <th>ข้อมูลผู้ลงทะเบียน</th>
+                <th>กลุ่มผู้ใช้</th>
+                <th>แพ็กเกจ & ไซส์เสื้อ</th>
+                <th>ยอดเงิน</th>
+                <th>สลิปโอนเงิน</th>
+                <th>สถานะคำขอ</th>
+                <th>จัดการสิทธิ์</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+              <!-- Dynamically populated via js/admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+       7. SLIP INSPECTOR MODAL // หน้าต่างตรวจสลิปสไตล์ Lightbox
+       ========================================================================== -->
+  <div class="admin-modal-backdrop" id="slipModal" aria-hidden="true" role="dialog">
+    <div class="admin-modal-card">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="slipModalTitle">ตรวจสอบหลักฐานสลิปการโอนเงิน // SLIP VERIFIER</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseSlipModal" aria-label="ปิด">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="slip-inspector-body">
+        <!-- Left Column: Slip Image -->
+        <div class="slip-img-column">
+          <img id="slipInspectorImg" class="slip-big-img" src="" alt="ภาพสลิปการโอนเงิน">
+        </div>
+
+        <!-- Right Column: Verification Metadata & Actions -->
+        <div class="slip-meta-column">
+          <div class="slip-info-list">
+            <div class="slip-info-item">
+              <span class="slip-info-k">ผู้ส่งคำขอ :</span>
+              <span class="slip-info-v" id="slipInspectName">-</span>
+            </div>
+            <div class="slip-info-item">
+              <span class="slip-info-k">ประเภท / ชั้นห้อง / รหัส :</span>
+              <span class="slip-info-v" id="slipInspectMeta">-</span>
+            </div>
+            <div class="slip-info-item">
+              <span class="slip-info-k">แพ็กเกจที่เลือก :</span>
+              <span class="slip-info-v" id="slipInspectPackage">-</span>
+            </div>
+            <div class="slip-info-item">
+              <span class="slip-info-k">ยอดที่ต้องโอนเข้าบัญชีสภา :</span>
+              <span class="slip-info-v green-v" id="slipInspectAmount">฿0.00</span>
+            </div>
+            <div class="slip-info-item">
+              <span class="slip-info-k">เวลาที่บันทึกข้อมูล :</span>
+              <span class="slip-info-v" id="slipInspectTime">-</span>
+            </div>
+            <div class="slip-info-item">
+              <span class="slip-info-k">สถานะปัจจุบัน :</span>
+              <span class="slip-info-v" id="slipInspectStatus">-</span>
+            </div>
+          </div>
+
+          <!-- Quick Actions in Modal -->
+          <div class="inspector-actions-row">
+            <button type="button" class="btn-inspect-action btn-action-approve" id="btnInspectApprove">
+              อนุมัติสิทธิ์ (APPROVE)
+            </button>
+            <button type="button" class="btn-inspect-action btn-action-reject" id="btnInspectReject">
+              ปฏิเสธสลิป (REJECT)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       8. REJECT REASON MODAL // หน้าต่างระบุเหตุผลการปฏิเสธสลิป
+       ========================================================================== -->
+  <div class="admin-modal-backdrop" id="rejectModal" aria-hidden="true" role="dialog">
+    <div class="admin-modal-card" style="max-width: 480px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title">ระบุเหตุผลที่ปฏิเสธสลิป // REJECT NOTE</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseRejectModal" aria-label="ปิด">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="reject-modal-body">
+        <p style="font-family: var(--font-pridi); font-size: 0.85rem; color: var(--text-muted);">
+          เหตุผลนี้จะแสดงให้ผู้ใช้เห็นเมื่อพยายามเข้าสู่ระบบหน้าเว็บ เพื่อให้ทราบและแนบสลิปใหม่
+        </p>
+
+        <!-- Quick Choice Pills -->
+        <div class="reject-quick-pills">
+          <button type="button" class="btn-quick-reason" data-reason="ยอดเงินที่โอนไม่ตรงกับราคาแพ็กเกจ">ยอดเงินไม่ตรง</button>
+          <button type="button" class="btn-quick-reason" data-reason="ภาพสลิปไม่ชัดเจน มองไม่เห็นวันที่และเวลา">สลิปไม่ชัดเจน</button>
+          <button type="button" class="btn-quick-reason" data-reason="ตรวจพบสลิปซ้ำซ้อนในระบบ">สลิปซ้ำ</button>
+          <button type="button" class="btn-quick-reason" data-reason="ไม่พบบัญชีปลายทางของสภานักเรียน">บัญชีไม่ถูกต้อง</button>
+        </div>
+
+        <textarea id="rejectReasonTextarea" class="reject-reason-textarea" placeholder="พิมพ์เหตุผลเพิ่มเติมที่ต้องการแจ้งนักเรียน..."></textarea>
+
+        <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 6px;">
+          <button type="button" class="btn-tool btn-tool-reset" id="btnCancelReject">ยกเลิก</button>
+          <button type="button" class="btn-action btn-action-reject" id="btnConfirmReject" style="padding: 9px 18px;">ยืนยันการปฏิเสธ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

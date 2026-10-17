@@ -1,0 +1,46 @@
+/* ==========================================================================
+   TRIAMDOD 10 CONCERT — Y2K Editorial & Retro VHS Teaser Webpage
+   Theme: Matte Black, Editorial Serif, Taviraj Looped Thai Font,
+          Sharp Ink 10 Title, CRT TV, Split-Flap Airport Board,
+          3D Rotating Silver Chrome Stars, Nokia 3310 Timetable, 90s Ticket
+   ========================================================================== */
+
+:root {
+  --bg-color: #0b0c0e;
+  --bg-card: #131417;
+  --text-main: #f3f3f0;
+  --text-muted: #9598a1;
+  --text-subtle: #5f6168;
+  
+  --font-serif: 'Italiana', 'Cinzel', 'Instrument Serif', 'IBM Plex Sans Thai', Georgia, serif;
+  --font-thai: 'IBM Plex Sans Thai', sans-serif;
+  --font-thai-sans: 'IBM Plex Sans Thai', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', 'IBM Plex Sans Thai', sans-serif;
+  --font-y2k: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  --font-osd: 'VT323', 'IBM Plex Sans Thai', monospace;
+  --font-pencil: 'Pridi', serif;
+  --font-pridi: 'Pridi', serif;
+  --font-swash: 'Pinyon Script', 'Alex Brush', cursive;
+
+  /* Y2K Accents from Keychain Logo */
+  --accent-pink: #ff007f;
+  --accent-pink-glow: rgba(255, 0, 127, 0.45);
+  --accent-neon-green: #d4ff00;
+  --accent-cyan: #00f0ff;
+  --accent-blue: #3b82f6;
+  --accent-amber: #ffb830;
+
+  --crt-glow: rgba(59, 130, 246, 0.18);
+  --tv-bezel-outer: #1c1d22;
+  --tv-bezel-inner: #0f1013;
+
+  /* Hyper-Realistic Nokia 3310 Colors */
+  --nokia-shell-top: #2c3349;
+  --nokia-shell-mid: #1c2132;
+  --nokia-shell-bottom: #121520;
+  --nokia-faceplate-rim: #454d66;
+  --nokia-lcd-bg: #879e67;
+  --nokia-lcd-text: #192314;
+  --nokia-key-bg: #2d3448;
+  --nokia-key-border: #4a5472;
+}

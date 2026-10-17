@@ -1,0 +1,1374 @@
+/* ==========================================================================
+   TRIAMDOD 10 — STUDENT COUNCIL ADMIN BACKOFFICE
+   Authentic Y2K Editorial, Cassette Tape Deck & Darkroom Studio Theme
+   Strict Zero-Emoji Policy | Institutional Council Authority
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. GLOBAL CANVAS & FOUNDATIONS (Inherited from style.css)
+   -------------------------------------------------------------------------- */
+body.admin-body {
+  background-color: #0b0c0e;
+  color: #f3f3f0;
+  font-family: var(--font-thai), sans-serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   2. CASSETTE TAPE LOCK SCREEN (MASTER DECK ACCESS)
+   -------------------------------------------------------------------------- */
+.admin-lock-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(11, 12, 14, 0.94);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+
+/* Master Cassette Shell */
+.master-cassette-box {
+  width: 100%;
+  max-width: 520px;
+  background: #14151a;
+  border: 2px solid #2d3039;
+  border-radius: 20px;
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.9),
+    0 0 50px rgba(255, 0, 127, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  padding: 24px 22px 28px;
+}
+
+/* Corner Metallic Screws */
+.master-screw {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  background: radial-gradient(circle at 35% 35%, #94a3b8, #334155 70%);
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4), 0 1px 3px rgba(0, 0, 0, 0.6);
+  z-index: 5;
+}
+
+.master-screw::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 1.5px;
+  background: #0f172a;
+  transform: translate(-50%, -50%) rotate(40deg);
+}
+
+.screw-tl { top: 12px; left: 12px; }
+.screw-tr { top: 12px; right: 12px; }
+.screw-bl { bottom: 12px; left: 12px; }
+.screw-br { bottom: 12px; right: 12px; }
+
+/* Cassette Paper Label */
+.master-paper-label {
+  background: #fbf7ee;
+  border: 1px solid #d4cbb8;
+  border-radius: 10px;
+  padding: 16px 18px 20px;
+  color: #0f172a;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.label-header-flex {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.master-side-badge {
+  font-family: var(--font-y2k);
+  font-size: 1.4rem;
+  font-weight: 900;
+  background: #0f172a;
+  color: #ffb830;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.label-title-stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.master-brand-code {
+  font-family: var(--font-y2k);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #0f172a;
+  line-height: 1.15;
+}
+
+.master-brand-sub {
+  font-family: var(--font-thai);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.02em;
+}
+
+.master-tech-tag {
+  font-family: var(--font-y2k);
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: rgba(255, 0, 127, 0.08);
+  color: #be123c;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 0, 127, 0.2);
+}
+
+/* Vintage Racing Stripe */
+.label-racing-stripe {
+  display: flex;
+  flex-direction: column;
+  height: 6px;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.stripe-line { height: 2px; width: 100%; }
+.stripe-line.red { background: #e11d48; }
+.stripe-line.black { background: #0f172a; }
+.stripe-line.gold { background: #f59e0b; }
+
+/* Cassette Window & Reel Spools in Lock Screen */
+.lock-tape-window {
+  background: #08090b;
+  border: 1.5px solid #2a2d36;
+  border-radius: 8px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.reel-spool-mini {
+  width: 28px;
+  height: 28px;
+  border: 2px solid #5a6275;
+  border-radius: 50%;
+  position: relative;
+  background: #141720;
+}
+
+.reel-spool-mini::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1.5px dashed #94a3b8;
+  border-radius: 50%;
+  animation: spinSpoolMini 8s linear infinite;
+}
+
+@keyframes spinSpoolMini {
+  100% { transform: rotate(360deg); }
+}
+
+.lock-window-counter {
+  font-family: var(--font-osd);
+  font-size: 1.15rem;
+  color: #d4ff00;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 8px rgba(212, 255, 0, 0.4);
+}
+
+/* Handwritten Pencil Inputs */
+.lock-pencil-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pencil-field-lbl {
+  font-family: var(--font-pridi), serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lbl-rec-tag {
+  font-family: var(--font-y2k);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #e11d48;
+}
+
+.pencil-ruled-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px dashed #94a3b8;
+  padding: 8px 4px;
+  font-family: var(--font-y2k);
+  font-size: 1.05rem;
+  letter-spacing: 0.15em;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.pencil-ruled-input:focus {
+  border-bottom: 2px solid #ff007f;
+}
+
+.btn-cassette-rec-submit {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #18191f, #0f1013);
+  border: 1.5px solid #ff007f;
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: var(--font-thai);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(255, 0, 127, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-cassette-rec-submit:hover {
+  background: #ff007f;
+  box-shadow: 0 6px 28px rgba(255, 0, 127, 0.45);
+  transform: translateY(-1px);
+}
+
+.lock-helper-text {
+  font-family: var(--font-pridi), serif;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.lock-helper-text code {
+  font-family: var(--font-y2k);
+  background: rgba(0, 0, 0, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   3. ADMIN APP WORKSPACE (MATCHING SITE-NAVBAR)
+   -------------------------------------------------------------------------- */
+.admin-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 10;
+}
+
+/* Top Sticky Navigation Bar */
+.admin-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(11, 12, 14, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nav-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-brand-badge {
+  background: linear-gradient(135deg, #ff007f, #be123c);
+  color: #ffffff;
+  font-family: var(--font-y2k);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 15px rgba(255, 0, 127, 0.35);
+}
+
+.nav-title-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-main-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.nav-sub-title {
+  font-family: var(--font-thai);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.nav-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-osd);
+  font-size: 0.95rem;
+  color: #d4ff00;
+  background: rgba(212, 255, 0, 0.08);
+  border: 1px solid rgba(212, 255, 0, 0.25);
+  padding: 3px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  background: #d4ff00;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #d4ff00;
+  animation: livePulse 2s infinite ease-in-out;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+
+.btn-nav-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: #f3f3f0;
+  font-family: var(--font-thai);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-nav-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ff007f;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.btn-nav-danger {
+  color: #fb7185;
+  border-color: rgba(244, 63, 94, 0.3);
+}
+
+.btn-nav-danger:hover {
+  background: rgba(244, 63, 94, 0.15);
+  border-color: #f43f5e;
+  color: #ffffff;
+}
+
+/* Main Workspace */
+.admin-workspace {
+  flex: 1;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 28px 28px 70px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   4. KPI CARDS (RETRO PHONECARD / CASSETTE INLAY THEME)
+   -------------------------------------------------------------------------- */
+.kpi-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.kpi-card {
+  background: #131417;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Top Racing Stripe on Cards */
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.kpi-card.card-emerald::before { background: linear-gradient(90deg, #10b981, #059669); }
+.kpi-card.card-cyan::before { background: linear-gradient(90deg, #00f0ff, #3b82f6); }
+.kpi-card.card-amber::before { background: linear-gradient(90deg, #ffb830, #f59e0b); }
+.kpi-card.card-rose::before { background: linear-gradient(90deg, #ff007f, #be123c); }
+
+.kpi-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kpi-label {
+  font-family: var(--font-pridi), serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.kpi-badge {
+  font-family: var(--font-y2k);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+}
+
+.badge-emerald { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+.badge-cyan { background: rgba(0, 240, 255, 0.15); color: #00f0ff; border: 1px solid rgba(0, 240, 255, 0.3); }
+.badge-amber { background: rgba(255, 184, 48, 0.15); color: #ffb830; border: 1px solid rgba(255, 184, 48, 0.3); }
+.badge-rose { background: rgba(255, 0, 127, 0.15); color: #ff007f; border: 1px solid rgba(255, 0, 127, 0.3); }
+
+.kpi-val {
+  font-family: var(--font-y2k);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-top: 4px;
+}
+
+.kpi-meta {
+  font-size: 0.74rem;
+  color: var(--text-subtle);
+  font-family: var(--font-thai);
+}
+
+/* --------------------------------------------------------------------------
+   5. T-SHIRT MERCH PRODUCTION SUMMARY (BACKSTAGE CRATE THEME)
+   -------------------------------------------------------------------------- */
+.tshirt-inventory-panel {
+  background: #131417;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.inventory-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inventory-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.inventory-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+}
+
+.inventory-pill-sum {
+  font-family: var(--font-y2k);
+  font-size: 0.78rem;
+  font-weight: 800;
+  background: rgba(255, 0, 127, 0.12);
+  color: #ff007f;
+  border: 1px solid rgba(255, 0, 127, 0.35);
+  padding: 3px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+}
+
+.inventory-columns-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.shirt-color-box {
+  background: #0b0c0e;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shirt-color-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-thai);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.heading-brown { color: #d97706; }
+.heading-beige { color: #fde047; }
+
+.size-counts-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.size-count-chip {
+  flex: 1;
+  min-width: 52px;
+  background: #18191f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 8px 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.size-label {
+  font-family: var(--font-y2k);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.size-val {
+  font-family: var(--font-y2k);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   6. CONTROL TOOLBAR (STUDIO MIXER & TERMINAL DISPATCH)
+   -------------------------------------------------------------------------- */
+.admin-toolbar {
+  background: #131417;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.toolbar-upper-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-input-wrap {
+  flex: 1;
+  min-width: 280px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon-symbol {
+  position: absolute;
+  left: 12px;
+  font-family: var(--font-osd);
+  font-size: 1.05rem;
+  color: #ff007f;
+  pointer-events: none;
+}
+
+.admin-search-input {
+  width: 100%;
+  padding: 10px 14px 10px 34px;
+  background: #0b0c0e;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: var(--font-thai);
+  font-size: 0.85rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.admin-search-input:focus {
+  border-color: #00f0ff;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.25);
+}
+
+.filter-select {
+  padding: 10px 14px;
+  background: #0b0c0e;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #f3f3f0;
+  font-family: var(--font-thai);
+  font-size: 0.82rem;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.filter-select:focus {
+  border-color: #ff007f;
+}
+
+.toolbar-buttons-cluster {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.btn-tool {
+  padding: 9px 15px;
+  border-radius: 8px;
+  font-family: var(--font-thai);
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.btn-tool-export {
+  background: linear-gradient(135deg, #059669, #047857);
+  color: #ffffff;
+  border-color: #10b981;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);
+}
+
+.btn-tool-export:hover {
+  background: #10b981;
+  transform: translateY(-1px);
+}
+
+.btn-tool-demo {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.25);
+}
+
+.btn-tool-demo:hover {
+  background: #3b82f6;
+  transform: translateY(-1px);
+}
+
+.btn-tool-reset {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-tool-reset:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   7. MASTER ORDERS TABLE (CASSETTE J-CARD LEDGER THEME)
+   -------------------------------------------------------------------------- */
+.orders-table-wrapper {
+  background: #131417;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+.table-header-strip {
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0b0c0e;
+}
+
+.table-count-info {
+  font-family: var(--font-thai);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.table-count-info b {
+  color: #ffffff;
+  font-family: var(--font-y2k);
+}
+
+.table-sort-hint {
+  font-family: var(--font-pridi), serif;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.table-scroll-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.admin-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.82rem;
+}
+
+.admin-data-table th {
+  background: #0f1013;
+  color: var(--text-muted);
+  font-family: var(--font-y2k);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 13px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  white-space: nowrap;
+}
+
+.admin-data-table td {
+  padding: 15px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  vertical-align: middle;
+}
+
+.admin-data-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.admin-data-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* User Identity Cell */
+.user-cell-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.user-cell-name {
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-family: var(--font-thai);
+}
+
+.user-cell-meta {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  font-family: var(--font-pridi), serif;
+}
+
+.user-cell-contact {
+  font-size: 0.72rem;
+  color: #64748b;
+  font-family: var(--font-y2k);
+}
+
+/* Role Badges */
+.role-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.role-student {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.role-alumni {
+  background: rgba(255, 0, 127, 0.15);
+  color: #f472b6;
+  border: 1px solid rgba(255, 0, 127, 0.3);
+}
+
+/* Package Cell */
+.pkg-cell-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pkg-cell-name {
+  font-weight: 600;
+  color: #f3f3f0;
+}
+
+.pkg-shirt-spec {
+  font-family: var(--font-y2k);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+/* Price Cell */
+.price-cell-val {
+  font-family: var(--font-y2k);
+  font-weight: 800;
+  font-size: 1rem;
+  color: #34d399;
+}
+
+/* Slip Thumbnail Cell */
+.slip-thumb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  background: #0b0c0e;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: #00f0ff;
+  font-family: var(--font-thai);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.slip-thumb-btn:hover {
+  background: rgba(0, 240, 255, 0.1);
+  border-color: #00f0ff;
+}
+
+.slip-mini-preview {
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 1px solid #475569;
+}
+
+/* Status Badges */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: var(--font-y2k);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.status-pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.status-approved {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.status-rejected {
+  background: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.35);
+}
+
+/* Action Buttons Cell */
+.table-actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.btn-action {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: var(--font-thai);
+  font-size: 0.74rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-action-approve {
+  background: #059669;
+  color: #ffffff;
+}
+
+.btn-action-approve:hover {
+  background: #10b981;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.btn-action-reject {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.btn-action-reject:hover {
+  background: #ef4444;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+.btn-action-del {
+  background: transparent;
+  color: #64748b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px 10px;
+}
+
+.btn-action-del:hover {
+  background: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+  border-color: #f43f5e;
+}
+
+/* Empty State */
+.table-empty-row td {
+  text-align: center;
+  padding: 54px 16px;
+  color: var(--text-subtle);
+}
+
+.empty-state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.empty-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   8. SLIP INSPECTOR & REJECT MODAL (DARKROOM LIGHTBOX THEME)
+   -------------------------------------------------------------------------- */
+.admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.admin-modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.admin-modal-card {
+  width: 100%;
+  max-width: 720px;
+  background: #14151a;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Scotch Tape Effect on Modal Top */
+.admin-modal-card::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.admin-modal-header {
+  padding: 16px 22px;
+  background: #0b0c0e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+}
+
+.btn-close-modal {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.btn-close-modal:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* Slip Inspector Body */
+.slip-inspector-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 22px;
+  gap: 22px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.slip-img-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.slip-big-img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  background: #090e17;
+  object-fit: contain;
+  max-height: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.slip-meta-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.slip-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #0b0c0e;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.slip-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.slip-info-k {
+  font-family: var(--font-pridi), serif;
+  font-size: 0.74rem;
+  color: var(--text-subtle);
+  font-weight: 600;
+}
+
+.slip-info-v {
+  font-family: var(--font-thai);
+  font-size: 0.88rem;
+  color: #f3f3f0;
+  font-weight: 700;
+}
+
+.slip-info-v.green-v {
+  color: #34d399;
+  font-family: var(--font-y2k);
+  font-size: 1.15rem;
+}
+
+.inspector-actions-row {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.btn-inspect-action {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-family: var(--font-thai);
+  font-size: 0.88rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+/* Reject Modal Specifics */
+.reject-modal-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.reject-reason-textarea {
+  width: 100%;
+  height: 95px;
+  padding: 12px 14px;
+  background: #0b0c0e;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: var(--font-thai);
+  font-size: 0.85rem;
+  resize: vertical;
+  outline: none;
+}
+
+.reject-reason-textarea:focus {
+  border-color: #f43f5e;
+}
+
+.reject-quick-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.btn-quick-reason {
+  background: #18191f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-family: var(--font-thai);
+  font-size: 0.74rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-quick-reason:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   9. RESPONSIVE BREAKPOINTS
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .kpi-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .inventory-columns-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nav-actions-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .kpi-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .slip-inspector-body {
+    grid-template-columns: 1fr;
+  }
+  .toolbar-upper-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .toolbar-buttons-cluster {
+    margin-left: 0;
+    width: 100%;
+    justify-content: stretch;
+  }
+  .toolbar-buttons-cluster button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-main-container {
+    padding: 1rem 0.75rem 3rem;
+  }
+
+  .master-cassette-box {
+    padding: 16px 12px 20px;
+    border-radius: 16px;
+  }
+
+  .master-paper-label {
+    padding: 12px 12px 16px;
+    border-radius: 8px;
+  }
+
+  .master-side-badge {
+    width: 30px;
+    height: 30px;
+    font-size: 1.15rem;
+  }
+
+  .master-brand-code {
+    font-size: 0.92rem;
+  }
+
+  .table-filter-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+
+  .table-filter-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-tab-btn {
+    white-space: nowrap !important;
+    flex-shrink: 0;
+    padding: 6px 12px;
+    font-size: 0.78rem;
+  }
+
+  .admin-table-wrapper {
+    border-radius: 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .admin-table {
+    min-width: 580px;
+  }
+
+  .admin-kpi-card {
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+
+  .inventory-kpi-card {
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+
+  .slip-inspector-card {
+    max-width: calc(100vw - 20px);
+    margin: 10px;
+    padding: 14px 12px;
+    border-radius: 14px;
+  }
+}
