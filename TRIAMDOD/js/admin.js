@@ -102,6 +102,171 @@
   const btnConfirmReject = document.getElementById('btnConfirmReject');
   const quickReasonButtons = document.querySelectorAll('.btn-quick-reason');
 
+  // Modern In-App Notice Modal Elements
+  const retroNoticeModal = document.getElementById('retroNoticeModal');
+  const retroNoticeCard = document.getElementById('retroNoticeCard');
+  const retroNoticeBadge = document.getElementById('retroNoticeBadge');
+  const retroNoticeTitle = document.getElementById('retroNoticeTitle');
+  const retroNoticeIcon = document.getElementById('retroNoticeIcon');
+  const retroNoticeMessage = document.getElementById('retroNoticeMessage');
+  const retroNoticeConfirmBtn = document.getElementById('retroNoticeConfirmBtn');
+  const retroNoticeCancelBtn = document.getElementById('retroNoticeCancelBtn');
+  const retroNoticeCloseX = document.getElementById('retroNoticeCloseX');
+  const retroNoticeConfirmText = document.getElementById('retroNoticeConfirmText');
+
+  let retroNoticeOnConfirm = null;
+  let retroNoticeOnCancel = null;
+
+  // Format Thai Buddhist Era date for thermal receipt (e.g. 18/10/69 11:28)
+  function formatReceiptThaiDate() {
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const yearBE = String((now.getFullYear() + 543) % 100).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const mins = String(now.getMinutes()).padStart(2, '0');
+    return `${day}/${month}/${yearBE} ${hours}:${mins}`;
+  }
+
+  // Official Council Receipt Rubber Stamp Badge (Zero emojis)
+  function getReceiptStampBadge(type) {
+    if (type === 'success' || type === 'pass') {
+      return `<span class="stamp-border-inner"><span class="stamp-text-badge">[ APPROVED // อนุมัติ ]</span></span>`;
+    }
+    if (type === 'error' || type === 'rejected') {
+      return `<span class="stamp-border-inner"><span class="stamp-text-badge">[ REJECTED // ไม่อนุมัติ ]</span></span>`;
+    }
+    if (type === 'warning') {
+      return `<span class="stamp-border-inner"><span class="stamp-text-badge">[ WARNING // ข้อควรระวัง ]</span></span>`;
+    }
+    if (type === 'confirm') {
+      return `<span class="stamp-border-inner"><span class="stamp-text-badge">[ CONFIRM // โปรดยืนยัน ]</span></span>`;
+    }
+    return `<span class="stamp-border-inner"><span class="stamp-text-badge">[ NOTICE // การแจ้งเตือน ]</span></span>`;
+  }
+
+  function showRetroAlert(title, message, type = 'info', onOk = null) {
+    if (!retroNoticeModal) {
+      if (typeof onOk === 'function') onOk();
+      return;
+    }
+
+    retroNoticeOnConfirm = onOk;
+    retroNoticeOnCancel = null;
+
+    const normType = (type === 'pass') ? 'success' : (type === 'rejected') ? 'error' : type;
+
+    if (retroNoticeCard) {
+      retroNoticeCard.dataset.noticeType = normType;
+    }
+
+    const receiptTs = document.getElementById('receiptTimestamp');
+    if (receiptTs) {
+      receiptTs.textContent = formatReceiptThaiDate();
+    }
+
+    if (retroNoticeBadge) {
+      if (normType === 'success') retroNoticeBadge.textContent = 'ระบบจัดการหลังบ้าน • อนุมัติสำเร็จ';
+      else if (normType === 'warning') retroNoticeBadge.textContent = 'ระบบจัดการหลังบ้าน • ข้อควรระวัง';
+      else if (normType === 'error') retroNoticeBadge.textContent = 'ระบบจัดการหลังบ้าน • รายการผิดพลาด';
+      else retroNoticeBadge.textContent = 'ระบบจัดการหลังบ้าน • สภานักเรียน';
+    }
+
+    if (retroNoticeTitle) {
+      retroNoticeTitle.textContent = title || 'สภานักเรียน • TRIAMDOD';
+    }
+
+    if (retroNoticeMessage) {
+      retroNoticeMessage.textContent = message || '';
+    }
+
+    if (retroNoticeIcon) {
+      retroNoticeIcon.className = `receipt-ink-stamp type-${normType}`;
+      retroNoticeIcon.innerHTML = getReceiptStampBadge(normType);
+    }
+
+    if (retroNoticeCancelBtn) retroNoticeCancelBtn.style.display = 'none';
+    if (retroNoticeConfirmText) retroNoticeConfirmText.textContent = 'รับทราบ // ตกลง';
+
+    retroNoticeModal.classList.add('active');
+  }
+
+  function showRetroConfirm(title, message, onConfirm = null, onCancel = null) {
+    if (!retroNoticeModal) {
+      if (typeof onConfirm === 'function') onConfirm();
+      return;
+    }
+
+    retroNoticeOnConfirm = onConfirm;
+    retroNoticeOnCancel = onCancel;
+
+    if (retroNoticeCard) {
+      retroNoticeCard.dataset.noticeType = 'confirm';
+    }
+
+    const receiptTs = document.getElementById('receiptTimestamp');
+    if (receiptTs) {
+      receiptTs.textContent = formatReceiptThaiDate();
+    }
+
+    if (retroNoticeBadge) {
+      retroNoticeBadge.textContent = 'ระบบจัดการหลังบ้าน • ยืนยันการทำรายการ';
+    }
+
+    if (retroNoticeTitle) {
+      retroNoticeTitle.textContent = title || 'ยืนยันการดำเนินการ';
+    }
+
+    if (retroNoticeMessage) {
+      retroNoticeMessage.textContent = message || '';
+    }
+
+    if (retroNoticeIcon) {
+      retroNoticeIcon.className = 'receipt-ink-stamp type-confirm';
+      retroNoticeIcon.innerHTML = getReceiptStampBadge('confirm');
+    }
+
+    if (retroNoticeCancelBtn) retroNoticeCancelBtn.style.display = 'inline-flex';
+    if (retroNoticeConfirmText) retroNoticeConfirmText.textContent = 'ฉีกเก็บ // ยืนยัน';
+
+    retroNoticeModal.classList.add('active');
+  }
+
+  function closeRetroNotice(isConfirmed = false) {
+    if (retroNoticeModal) {
+      retroNoticeModal.classList.remove('active');
+    }
+
+    if (isConfirmed) {
+      if (typeof retroNoticeOnConfirm === 'function') {
+        const cb = retroNoticeOnConfirm;
+        retroNoticeOnConfirm = null;
+        cb();
+      }
+    } else {
+      if (typeof retroNoticeOnCancel === 'function') {
+        const cb = retroNoticeOnCancel;
+        retroNoticeOnCancel = null;
+        cb();
+      }
+    }
+  }
+
+  if (retroNoticeConfirmBtn) {
+    retroNoticeConfirmBtn.addEventListener('click', () => closeRetroNotice(true));
+  }
+  if (retroNoticeCancelBtn) {
+    retroNoticeCancelBtn.addEventListener('click', () => closeRetroNotice(false));
+  }
+  if (retroNoticeCloseX) {
+    retroNoticeCloseX.addEventListener('click', () => closeRetroNotice(false));
+  }
+  if (retroNoticeModal) {
+    retroNoticeModal.addEventListener('click', (e) => {
+      if (e.target === retroNoticeModal) closeRetroNotice(false);
+    });
+  }
+
   // App State
   let ordersList = [];
   let currentInspectedOrderId = null;
@@ -133,7 +298,7 @@
         if (adminApp) adminApp.style.display = 'flex';
         loadOrdersData();
       } else {
-        alert('รหัสผ่านสภานักเรียนไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง');
+        showRetroAlert('รหัสผ่านไม่ถูกต้อง', 'รหัสผ่านสภานักเรียนไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง', 'error');
         if (adminPasscodeInput) {
           adminPasscodeInput.value = '';
           adminPasscodeInput.focus();
@@ -144,10 +309,10 @@
 
   if (btnLogoutAdmin) {
     btnLogoutAdmin.addEventListener('click', () => {
-      if (confirm('คุณต้องการออกจากระบบสภานักเรียนใช่หรือไม่?')) {
+      showRetroConfirm('ยืนยันออกจากระบบ', 'คุณต้องการออกจากระบบจัดการสภานักเรียนหรือไม่?', () => {
         sessionStorage.removeItem(STORAGE_KEY_ADMIN_AUTH);
         checkAdminSession();
-      }
+      });
     });
   }
 
@@ -379,7 +544,7 @@
 
     ordersList = demoOrders;
     saveOrdersData();
-    alert('สร้างข้อมูลจำลองเพื่อการทดสอบเรียบร้อยแล้ว (7 รายการ)');
+    showRetroAlert('สร้างข้อมูลจำลอง', 'สร้างข้อมูลจำลองเพื่อการทดสอบเรียบร้อยแล้ว (7 รายการ)', 'success');
   }
 
   // --------------------------------------------------------------------------
@@ -689,10 +854,10 @@
     const order = ordersList.find(o => o.id === orderId);
     if (!order) return;
 
-    if (confirm(`คุณแน่ใจหรือไม่ว่าต้องการลบคำขอของ "${order.fullname}" (${order.id})?`)) {
+    showRetroConfirm('ยืนยันการลบ', `คุณแน่ใจหรือไม่ว่าต้องการลบคำขอของ "${order.fullname}" (${order.id})?`, () => {
       ordersList = ordersList.filter(o => o.id !== orderId);
       saveOrdersData();
-    }
+    });
   }
 
   // Sync with frontend localStorage key `td10_pending_user` so login in index.html reflects immediately
@@ -796,7 +961,7 @@
   // --------------------------------------------------------------------------
   function exportOrdersToCsv() {
     if (ordersList.length === 0) {
-      alert('ไม่มีข้อมูลคำขอสำหรับส่งออก');
+      showRetroAlert('ไม่มีข้อมูล', 'ไม่มีข้อมูลคำขอสำหรับส่งออกเป็นไฟล์ CSV', 'info');
       return;
     }
 
@@ -864,10 +1029,11 @@
 
   if (btnResetData) {
     btnResetData.addEventListener('click', () => {
-      if (confirm('คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลคำขอทั้งหมด? การกระทำนี้ไม่สามารถย้อนกลับได้')) {
+      showRetroConfirm('ยืนยันการล้างข้อมูล', 'คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลคำขอทั้งหมด? การกระทำนี้ไม่สามารถย้อนกลับได้', () => {
         ordersList = [];
         saveOrdersData();
-      }
+        showRetroAlert('ล้างข้อมูลสำเร็จ', 'ล้างข้อมูลคำขอทั้งหมดเรียบร้อยแล้ว', 'info');
+      });
     });
   }
 

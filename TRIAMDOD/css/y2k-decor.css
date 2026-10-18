@@ -537,3 +537,12 @@
     top: 50%;
   }
 }
+
+/* Performance optimization: pause heavy 3D & diffraction calculations when modal is open */
+body.modal-active .retro-cd-disc,
+body.modal-active .cd-rainbow-iridescent,
+body.modal-active .cd-specular-beam,
+body.modal-active .cassette-prism-glow {
+  animation-play-state: paused !important;
+}
+

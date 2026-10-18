@@ -1881,8 +1881,16 @@
               <span class="tab-tape-badge tab-badge-c">C</span>
               <span class="tab-tape-text">เลือกแพ็กเกจ</span>
             </button>
+            <button class="tape-select-btn" data-tab="profile" type="button" id="tabTapeD" style="display: none;">
+              <span class="tab-tape-badge tab-badge-d">D</span>
+              <span class="tab-tape-text">ข้อมูลผู้ใช้</span>
+            </button>
           </div>
 
+          <button class="deck-logout-btn" id="deckLogoutBtn" type="button" title="ออกจากระบบ" style="display: none;">
+            <span class="logout-icon">⏹</span>
+            <span class="logout-text">LOGOUT</span>
+          </button>
           <button class="deck-eject-btn" id="closeAuthBtn" aria-label="ปิดหน้าต่างตลับเทป">
             <span class="eject-icon">⏏</span>
             <span class="eject-text">EJECT</span>
@@ -1944,10 +1952,10 @@
               <form class="tape-pencil-form" id="loginForm">
                 <div class="pencil-field-row">
                   <label for="loginUsername" class="pencil-guide-label">
-                    <span class="lbl-track">TRACK 01 //</span> อีเมล Google (@tun.ac.th หรือ @gmail.com) / รหัสนักเรียน :
+                    <span class="lbl-track">TRACK 01 //</span> ชื่อ-นามสกุล / รหัสนักเรียน / อีเมลโรงเรียน หรือ Google :
                   </label>
                   <div class="pencil-input-wrap">
-                    <input type="text" id="loginUsername" class="pencil-input" placeholder="พิมพ์อีเมล หรือรหัส 45xxx..." required autocomplete="username">
+                    <input type="text" id="loginUsername" class="pencil-input" placeholder="เช่น วิภูวนัย, 25784 หรือ 25784@tun.ac.th" required autocomplete="username">
                   </div>
                 </div>
 
@@ -2107,6 +2115,14 @@
                   </div>
                   <div class="info-auth-badge">
                     <span>* ดึงข้อมูลจากระบบ Google Workspace (@tun.ac.th) อัตโนมัติ (ไม่ต้องตั้งรหัสผ่าน)</span>
+                  </div>
+                  <div class="pencil-field-row" style="margin-top: 8px;">
+                    <label for="stuPhoneInput" class="pencil-guide-label" style="font-size: 0.8rem;">
+                      <span class="lbl-track">TEL //</span> เบอร์โทรศัพท์มือถือที่ติดต่อได้ :
+                    </label>
+                    <div class="pencil-input-wrap">
+                      <input type="tel" id="stuPhoneInput" class="pencil-input" placeholder="เช่น 081-234-5678" required>
+                    </div>
                   </div>
                 </div>
 
@@ -2478,6 +2494,176 @@
           <!-- Background Tap Trigger -->
           <div class="tape-back-tap-hint">
             <span>ตลับ C : เลือกแพ็กเกจ</span>
+          </div>
+        </div>
+
+        <!-- TAPE D : ข้อมูลผู้ใช้ & แก้ไขข้อมูล (Cyber Emerald Studio Tape) -->
+        <div class="cassette-tape-card tape-d stacked-behind" id="tapeD" data-tape="profile">
+          <!-- Cassette Casing Outer Frame -->
+          <div class="tape-shell shell-cyber-emerald">
+            <!-- 5 Metallic Screws -->
+            <div class="tape-screw screw-tl"></div>
+            <div class="tape-screw screw-tr"></div>
+            <div class="tape-screw screw-bl"></div>
+            <div class="tape-screw screw-br"></div>
+            <div class="tape-screw screw-bottom-mid"></div>
+
+            <!-- Cassette Paper Label -->
+            <div class="tape-paper-label label-cyber-mint">
+              <div class="label-header-row">
+                <div class="side-badge-box side-d">D</div>
+                <div class="label-title-group">
+                  <span class="brand-code-print" id="tapeDBrandPrint">TRIAMDOD // PROFILE &amp; PASS</span>
+                  <span class="brand-sub-print" id="tapeDBrandSub">STUDENT COUNCIL VERIFIED ID CARD</span>
+                </div>
+                <div class="label-tech-box">
+                  <span class="tech-tag mint-tag" id="tapeDRoleTag">VERIFIED</span>
+                  <span class="tech-tag mint-tag">EQ 120µs</span>
+                </div>
+              </div>
+
+              <!-- Emerald & Mint Cyber Stripe -->
+              <div class="tape-racing-stripe">
+                <span class="stripe-bar stripe-emerald"></span>
+                <span class="stripe-bar stripe-mint"></span>
+              </div>
+
+              <!-- Status Banner (Approved Pass / Pending Review / Slip Rejected) -->
+              <div class="tape-d-status-banner" id="tapeDStatusBanner">
+                <div class="status-banner-badge" id="tapeDStatusBadge">[สถานะคำขอ: กำลังตรวจสอบ]</div>
+                <div class="status-banner-content" id="tapeDStatusContent">กำลังโหลดข้อมูลสถานะคำสั่งซื้อ...</div>
+              </div>
+
+              <!-- Tape D Form Body -->
+              <form class="tape-d-profile-form" id="tapeDProfileForm">
+                
+                <!-- STUDENT VIEW (Current Student: Verified Read-only School Card + Editable Phone) -->
+                <div class="tape-d-student-view" id="tapeDStudentView">
+                  <!-- Verified School Identity Card -->
+                  <div class="verified-school-card">
+                    <div class="verified-card-header">
+                      <span class="verified-school-icon">[VERIFIED]</span>
+                      <span class="verified-school-title">ข้อมูลยืนยันจากทะเบียนโรงเรียนเตรียมอุดมศึกษาน้อมเกล้า</span>
+                      <span class="verified-school-badge">TUN OFFICIAL RECORD</span>
+                    </div>
+                    <div class="verified-grid-fields">
+                      <div class="verified-field-item">
+                        <span class="vf-label">ชื่อ - นามสกุลจริง :</span>
+                        <span class="vf-value highlight-name" id="dStuFullname">-</span>
+                      </div>
+                      <div class="verified-field-item">
+                        <span class="vf-label">รหัสประจำตัวนักเรียน :</span>
+                        <span class="vf-value" id="dStuId">-</span>
+                      </div>
+                      <div class="verified-field-item">
+                        <span class="vf-label">ระดับชั้น / ห้อง / เลขที่ :</span>
+                        <span class="vf-value" id="dStuGrade">-</span>
+                      </div>
+                      <div class="verified-field-item">
+                        <span class="vf-label">อีเมลโรงเรียน :</span>
+                        <span class="vf-value" id="dStuEmail">-</span>
+                      </div>
+                    </div>
+                    <div class="verified-note-box">
+                      <span class="vn-icon">[*]</span>
+                      <span class="vn-text">ข้อมูลนักเรียนอ้างอิงจากฐานข้อมูลโรงเรียนและบัญชี @tun.ac.th เพื่อความถูกต้องของบัตรเข้างาน จึงไม่สามารถแก้ไขได้</span>
+                    </div>
+                  </div>
+
+                  <!-- Editable Phone Field -->
+                  <div class="pencil-field-row" style="margin-top: 14px;">
+                    <label for="dStuPhoneInput" class="pencil-guide-label">
+                      <span class="lbl-track">01 //</span> เบอร์โทรศัพท์มือถือที่ติดต่อได้ (สามารถแก้ไขได้) :
+                    </label>
+                    <div class="pencil-input-wrap">
+                      <input type="tel" id="dStuPhoneInput" class="pencil-input" placeholder="เช่น 081-234-5678" required>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ALUMNI VIEW (Alumni: Verified Email + Editable Name, Phone, Address, Batch) -->
+                <div class="tape-d-alumni-view" id="tapeDAlumniView" style="display: none;">
+                  <div class="verified-school-card alumni-mode-card">
+                    <div class="verified-card-header">
+                      <span class="verified-school-icon">[VERIFIED]</span>
+                      <span class="verified-school-title">บัญชี Google ยืนยันตัวตน</span>
+                      <span class="verified-school-badge">ALUMNI PASS</span>
+                    </div>
+                    <div class="verified-grid-fields">
+                      <div class="verified-field-item">
+                        <span class="vf-label">อีเมลที่เชื่อมต่อ :</span>
+                        <span class="vf-value" id="dAlumniEmail">-</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pencil-field-row">
+                    <label for="dAlumniFullnameInput" class="pencil-guide-label">
+                      <span class="lbl-track">01 //</span> ชื่อ - นามสกุลจริง (ภาษาไทย) :
+                    </label>
+                    <div class="pencil-input-wrap">
+                      <input type="text" id="dAlumniFullnameInput" class="pencil-input" required>
+                    </div>
+                  </div>
+
+                  <div class="pencil-field-row">
+                    <label for="dAlumniPhoneInput" class="pencil-guide-label">
+                      <span class="lbl-track">02 //</span> เบอร์โทรศัพท์มือถือ :
+                    </label>
+                    <div class="pencil-input-wrap">
+                      <input type="tel" id="dAlumniPhoneInput" class="pencil-input" placeholder="เช่น 081-234-5678" required>
+                    </div>
+                  </div>
+
+                  <div class="pencil-field-row">
+                    <label for="dAlumniAddressInput" class="pencil-guide-label">
+                      <span class="lbl-track">03 //</span> ที่อยู่จัดส่งเสื้อและของที่ระลึก :
+                    </label>
+                    <div class="pencil-input-wrap">
+                      <textarea id="dAlumniAddressInput" class="pencil-input" rows="2" placeholder="บ้านเลขที่ ถนน แขวง/ตำบล เขต/อำเภอ จังหวัด รหัสไปรษณีย์"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="pencil-field-row">
+                    <label for="dAlumniBatchSelect" class="pencil-guide-label">
+                      <span class="lbl-track">04 //</span> รุ่นที่จบการศึกษา :
+                    </label>
+                    <div class="pencil-input-wrap">
+                      <select id="dAlumniBatchSelect" class="pencil-input">
+                        <!-- Populated via JS 1 - 37 -->
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Action Buttons: Save & Logout -->
+                <div class="tape-d-actions-row">
+                  <button type="submit" class="btn-tape-mechanical btn-mint-submit" id="btnTapeDSave">
+                    <span class="mechanical-icon">▶</span>
+                    <span class="mechanical-text">บันทึกข้อมูล // SAVE CHANGES</span>
+                  </button>
+                  <button type="button" class="btn-tape-mechanical btn-logout-action" id="btnTapeDLogout">
+                    <span class="mechanical-icon">⏹</span>
+                    <span class="mechanical-text">ออกจากระบบ // LOG OUT</span>
+                  </button>
+                </div>
+
+              </form>
+
+            </div>
+
+            <!-- Bottom Trapezoid Cassette Chin -->
+            <div class="tape-trapezoid-chin emerald-chin">
+              <div class="chin-roller-hole hole-left"></div>
+              <div class="chin-drive-hole hole-mid-left"></div>
+              <div class="chin-drive-hole hole-mid-right"></div>
+              <div class="chin-roller-hole hole-right"></div>
+            </div>
+          </div>
+
+          <!-- Background Tap Trigger -->
+          <div class="tape-back-tap-hint">
+            <span>ตลับ D : ข้อมูลผู้ใช้</span>
           </div>
         </div>
 
@@ -2889,93 +3075,103 @@
   </div>
 
   <!-- ==========================================================================
-       GOOGLE ACCOUNT SELECTOR SIMULATION MODAL (เลือกหรือพิมพ์บัญชี Google @tun.ac.th หรือ @gmail.com)
+       7-ELEVEN STYLE CONVENIENCE STORE THERMAL RECEIPT MODAL (ป๊อปอัปสไตล์ใบเสร็จร้านสะดวกซื้อ)
        ========================================================================== -->
-  <div class="google-modal-backdrop" id="googleAccountModal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="google-dialog-card">
-      <div class="google-dialog-header">
-        <svg viewBox="0 0 24 24" width="28" height="28" class="google-header-logo">
-          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+  <div class="retro-notice-backdrop" id="retroNoticeModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="retro-notice-card receipt-paper-slip" id="retroNoticeCard" data-notice-type="info">
+      
+      <!-- Top Sawtooth Cutter Edge (รอยฉีกฟันปลาหัวใบเสร็จ) -->
+      <div class="receipt-sawtooth-cut receipt-sawtooth-top" aria-hidden="true">
+        <svg viewBox="0 0 400 8" preserveAspectRatio="none" class="sawtooth-svg">
+          <path d="M 0 8 L 10 0 L 20 8 L 30 0 L 40 8 L 50 0 L 60 8 L 70 0 L 80 8 L 90 0 L 100 8 L 110 0 L 120 8 L 130 0 L 140 8 L 150 0 L 160 8 L 170 0 L 180 8 L 190 0 L 200 8 L 210 0 L 220 8 L 230 0 L 240 8 L 250 0 L 260 8 L 270 0 L 280 8 L 290 0 L 300 8 L 310 0 L 320 8 L 330 0 L 340 8 L 350 0 L 360 8 L 370 0 L 380 8 L 390 0 L 400 8 Z" fill="#faf8f2"/>
         </svg>
-        <div class="google-dialog-title">ลงชื่อเข้าใช้ด้วย Google</div>
-        <div class="google-dialog-sub">เพื่อดำเนินการต่อกับ คอนเสิร์ต TRIAMDOD 10</div>
       </div>
 
-      <!-- Real Google Sign-in Trigger -->
-      <div class="google-real-action-box">
-        <button type="button" class="btn-google-real-connect" id="btnConnectRealGoogle">
-          <svg viewBox="0 0 24 24" width="18" height="18">
-            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-          </svg>
-          <span id="txtConnectRealGoogle">เปิดหน้าต่าง Google ลงชื่อเข้าใช้จริง (OAuth 2.0)</span>
+      <!-- Receipt Header Zone (เหมือนหัวใบเสร็จร้านสะดวกซื้อ) -->
+      <div class="receipt-header-zone">
+        <div class="receipt-header-top">
+          <span class="receipt-brand-mono">สภานักเรียน, TRIAMDOD 10 สาขา 1 (TUN) (01322)</span>
+          <button class="receipt-pin-close" id="retroNoticeCloseX" type="button" aria-label="ปิดใบเสร็จ">&times;</button>
+        </div>
+        <div class="receipt-meta-mono">TAX#0107542000011 (VAT Included)</div>
+        <div class="receipt-meta-mono">Vat Code 00483 POS#777777777777</div>
+        <div class="receipt-category-title" id="retroNoticeBadge">ใบเสร็จรับเงิน/ใบกำกับภาษีอย่างย่อ</div>
+      </div>
+
+      <!-- Dotted Line -->
+      <div class="receipt-dotted-rule" aria-hidden="true">....................................................................</div>
+
+      <!-- Meta Info Row -->
+      <div class="receipt-meta-row">
+        <span class="receipt-ref-code">R#0000000037P1 :0555501</span>
+        <span class="receipt-timestamp" id="receiptTimestamp">18/10/69 11:28</span>
+      </div>
+      <div class="receipt-helpline-center">** คณะกรรมการสภานักเรียน **</div>
+
+      <!-- Dotted Line -->
+      <div class="receipt-dotted-rule" aria-hidden="true">....................................................................</div>
+
+      <!-- Central Content & Message (เลียนแบบส่วน Quote / ข้อคิดท้ายใบเสร็จ 7-Eleven) -->
+      <div class="receipt-body-center">
+        <!-- Stamp Mark Emblem -->
+        <div class="receipt-stamp-container">
+          <div class="receipt-ink-stamp type-info" id="retroNoticeIcon">
+            <span class="stamp-border-inner">
+              <span class="stamp-text-badge">[ NOTICE ]</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Headline / Status -->
+        <h3 class="receipt-status-headline" id="retroNoticeTitle">การแจ้งเตือนจากระบบ</h3>
+
+        <!-- Center Quote / Message Box with Floral Vignette Line Art -->
+        <div class="receipt-quote-card">
+          <div class="receipt-flourish-top" aria-hidden="true">
+            <svg class="flourish-svg" viewBox="0 0 100 12" fill="none" stroke="currentColor" stroke-width="1.3">
+              <path d="M10 6 C25 1 35 11 50 6 C65 1 75 11 90 6"></path>
+              <circle cx="50" cy="6" r="2" fill="currentColor"></circle>
+            </svg>
+          </div>
+          <div class="receipt-message-text" id="retroNoticeMessage">ข้อความแจ้งเตือน</div>
+          <div class="receipt-flourish-bottom" aria-hidden="true">
+            <svg class="flourish-svg" viewBox="0 0 100 12" fill="none" stroke="currentColor" stroke-width="1.3">
+              <path d="M10 6 C25 11 35 1 50 6 C65 11 75 1 90 6"></path>
+              <circle cx="50" cy="6" r="2" fill="currentColor"></circle>
+            </svg>
+          </div>
+          <div class="receipt-quote-source">(คณะกรรมการสภานักเรียน ต.อ.น.)</div>
+        </div>
+      </div>
+
+      <!-- Dotted Line -->
+      <div class="receipt-dotted-rule" aria-hidden="true">....................................................................</div>
+
+      <!-- Barcode Section -->
+      <div class="receipt-barcode-zone">
+        <div class="receipt-barcode-bars" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="receipt-barcode-number">* 25784-TUN-TD10-PASS *</div>
+      </div>
+
+      <!-- Action Buttons as Perforated Tear-off Tabs -->
+      <div class="receipt-actions-zone">
+        <button type="button" class="btn-receipt-action btn-receipt-cancel" id="retroNoticeCancelBtn" style="display: none;">
+          <span class="btn-r-text">ฉีกทิ้ง // ยกเลิก</span>
         </button>
-
-        <div class="google-oauth-config-box">
-          <div class="oauth-config-toggle-row">
-            <span class="oauth-config-status" id="oauthStatusText">สถานะ Google OAuth: <b>ยังไม่ได้ตั้งค่า Client ID</b></span>
-            <button type="button" class="btn-toggle-config" id="btnToggleOAuthConfig">ตั้งค่า / เปลี่ยน ID</button>
-          </div>
-          <div id="oauthConfigInputs" style="display: none;">
-            <label for="inputGoogleClientId" class="oauth-input-lbl">Google Client ID (จาก Google Cloud Console) :</label>
-            <div class="oauth-input-row">
-              <input type="text" id="inputGoogleClientId" class="oauth-client-input" value="590527192984-n971crnelc9e936m1lfilrdf8cie69ib.apps.googleusercontent.com" placeholder="xxxx.apps.googleusercontent.com">
-              <button type="button" class="btn-save-client-id" id="btnSaveClientId">บันทึก</button>
-            </div>
-            <div class="oauth-guide-hint">
-              * ต้องเพิ่ม Authorized JavaScript origin: <code>http://localhost:3000</code> ใน Google Cloud Console<br>
-              * เมื่อตั้งค่าแล้ว การกดปุ่มด้านบนจะเปิดหน้าต่าง Google accounts.google.com ของจริงขึ้นมาล็อกอินทันที
-            </div>
-          </div>
-        </div>
+        <button type="button" class="btn-receipt-action btn-receipt-confirm" id="retroNoticeConfirmBtn">
+          <span class="btn-r-text" id="retroNoticeConfirmText">รับทราบ // ตกลง</span>
+        </button>
       </div>
 
-      <div style="text-align: center; font-size: 0.72rem; color: #94a3b8; margin: 4px 0 10px; font-weight: 600;">
-        -- หรือเลือกบัญชีจำลองด้านล่างสำหรับการทดสอบ --
+      <!-- Bottom Sawtooth Cutter Edge (รอยฉีกฟันปลาท้ายใบเสร็จ) -->
+      <div class="receipt-sawtooth-cut receipt-sawtooth-bottom" aria-hidden="true">
+        <svg viewBox="0 0 400 8" preserveAspectRatio="none" class="sawtooth-svg">
+          <path d="M 0 0 L 10 8 L 20 0 L 30 8 L 40 0 L 50 8 L 60 0 L 70 8 L 80 0 L 90 8 L 100 0 L 110 8 L 120 0 L 130 8 L 140 0 L 150 8 L 160 0 L 170 8 L 180 0 L 190 8 L 200 0 L 210 8 L 220 0 L 230 8 L 240 0 L 250 8 L 260 0 L 270 8 L 280 0 L 290 8 L 300 0 L 310 8 L 320 0 L 330 8 L 340 0 L 350 8 L 360 0 L 370 8 L 380 0 L 390 8 L 400 0 Z" fill="#faf8f2"/>
+        </svg>
       </div>
 
-      <div class="google-account-list">
-        <!-- Account 1: Student @tun.ac.th (บัญชีจริงของนักเรียนเตรียมน้อม) -->
-        <div class="google-account-item" id="optAccountStudent">
-          <div class="google-avatar student-avatar">ว</div>
-          <div class="google-acc-info">
-            <span class="acc-name" id="optStudentName">611.16 วิภูวนัย(WIPUWANAI) ตั้งจิตมั่นคงชัย(TANGJITMANKONGCHAI)</span>
-            <span class="acc-email" id="optStudentEmail">25784@tun.ac.th</span>
-            <span class="acc-role-badge">นักเรียนปัจจุบัน (ม.6/11 • เลขที่ 16 • รหัส 25784)</span>
-          </div>
-          <span class="acc-arrow">→</span>
-        </div>
-
-        <!-- Account 2: Alumni @gmail.com -->
-        <div class="google-account-item" id="optAccountAlumni">
-          <div class="google-avatar alumni-avatar">ส</div>
-          <div class="google-acc-info">
-            <span class="acc-name">สมชาย นามสมมุติ</span>
-            <span class="acc-email">somchai.alumni@gmail.com</span>
-            <span class="acc-role-badge alumni">ศิษย์เก่าเตรียมน้อม</span>
-          </div>
-          <span class="acc-arrow">→</span>
-        </div>
-      </div>
-
-      <!-- Custom Email / Name Input Box -->
-      <div class="google-custom-box">
-        <label for="customGoogleEmail" class="custom-email-lbl">หรือระบุอีเมล Google / ชื่อบัญชีนักเรียนของคุณ :</label>
-        <div class="custom-email-input-row">
-          <input type="text" id="customGoogleEmail" class="google-custom-input" placeholder="เช่น 25784@tun.ac.th หรือ 611.16 วิภูวนัย...">
-          <button type="button" class="btn-custom-email-submit" id="btnSubmitCustomEmail">ยืนยัน</button>
-        </div>
-        <span class="custom-email-hint">รองรับอีเมล <b>@tun.ac.th</b> หรือแพทเทิร์น <b>ระดับชั้น/ห้อง.เลขที่ ชื่อ นามสกุล</b></span>
-      </div>
-
-      <div class="google-dialog-footer">
-        <button type="button" class="btn-google-cancel" id="btnCancelGoogleModal">ยกเลิก</button>
-      </div>
     </div>
   </div>
 

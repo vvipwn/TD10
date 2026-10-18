@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Pridi:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+
 /* ==========================================================================
    TRIAMDOD 10 — RETRO CASSETTE TAPE AUTH & TICKET DECK MODAL
    Design: Dual Stacked Cassette Tapes (TDK D-C60 Aesthetic)
@@ -335,6 +337,28 @@
 }
 
 .tape-c.stacked-deep:hover {
+  transform: translate3d(52px, -36px, -70px) rotate(5.5deg) scale(0.94);
+  filter: brightness(0.8) contrast(0.95);
+}
+
+.tape-d.stacked-behind {
+  transform: translate3d(26px, -18px, -50px) rotate(3.5deg) scale(0.96);
+  z-index: 20;
+  filter: brightness(0.72) contrast(0.9) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+}
+
+.tape-d.stacked-behind:hover {
+  transform: translate3d(32px, -24px, -35px) rotate(2.5deg) scale(0.98);
+  filter: brightness(0.9) contrast(1);
+}
+
+.tape-d.stacked-deep {
+  transform: translate3d(48px, -32px, -90px) rotate(6.5deg) scale(0.92);
+  z-index: 10;
+  filter: brightness(0.55) contrast(0.85);
+}
+
+.tape-d.stacked-deep:hover {
   transform: translate3d(52px, -36px, -70px) rotate(5.5deg) scale(0.94);
   filter: brightness(0.8) contrast(0.95);
 }
@@ -2231,103 +2255,6 @@
   transform: translateY(-1px);
 }
 
-.google-oauth-config-box {
-  background: #f8fafc;
-  border: 1px dashed #cbd5e1;
-  border-radius: 8px;
-  padding: 8px 12px;
-  margin-top: 10px;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.oauth-config-toggle-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.oauth-config-status {
-  font-family: 'IBM Plex Sans Thai', sans-serif;
-  font-size: 0.74rem;
-  color: #475569;
-}
-
-.oauth-config-status b {
-  color: #d97706;
-}
-
-.oauth-config-status b.connected {
-  color: #16a34a;
-}
-
-.btn-toggle-config {
-  background: transparent;
-  border: 1px solid #94a3b8;
-  color: #475569;
-  font-family: 'IBM Plex Sans Thai', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.btn-toggle-config:hover {
-  background: #e2e8f0;
-  color: #0f172a;
-}
-
-.oauth-input-lbl {
-  font-family: 'IBM Plex Sans Thai', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #334155;
-}
-
-.oauth-input-row {
-  display: flex;
-  gap: 6px;
-  margin-top: 2px;
-}
-
-.oauth-client-input {
-  flex: 1;
-  padding: 6px 10px;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  font-family: monospace;
-  font-size: 0.75rem;
-  outline: none;
-}
-
-.oauth-client-input:focus {
-  border-color: #2563eb;
-}
-
-.btn-save-client-id {
-  padding: 6px 14px;
-  background: #2563eb;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  font-family: 'IBM Plex Sans Thai', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.oauth-guide-hint {
-  font-family: 'IBM Plex Sans Thai', sans-serif;
-  font-size: 0.68rem;
-  color: #64748b;
-  line-height: 1.3;
-}
-
 .student-real-avatar-img {
   width: 32px;
   height: 32px;
@@ -2350,3 +2277,772 @@
     border-radius: 14px;
   }
 }
+
+/* --------------------------------------------------------------------------
+   DECK LOGOUT BUTTON & USER ACTIVE INDICATORS
+   -------------------------------------------------------------------------- */
+.user-active-led {
+  background: #10b981 !important;
+  box-shadow: 0 0 8px #10b981 !important;
+}
+
+.deck-logout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #7f1d1d;
+  color: #fecaca;
+  border: 1px solid #dc2626;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.deck-logout-btn:hover {
+  background: #b91c1c;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+}
+
+/* ==========================================================================
+   TAPE D : Cyber Emerald Studio Cassette (ข้อมูลผู้ใช้ & แก้ไขข้อมูล)
+   ========================================================================== */
+.shell-cyber-emerald {
+  background: linear-gradient(180deg, #064e3b 0%, #065f46 30%, #047857 70%, #022c22 100%);
+  border: 1px solid #10b981;
+  box-shadow: inset 0 2px 4px rgba(167, 243, 208, 0.3),
+              inset 0 -3px 6px rgba(0, 0, 0, 0.7),
+              0 0 35px rgba(16, 185, 129, 0.25);
+}
+
+.tape-paper-label.label-cyber-mint {
+  background: #f0fdf4;
+  border: 1px solid #a7f3d0;
+}
+
+.side-badge-box.side-d {
+  background: #065f46;
+  color: #6ee7b7;
+  border: 1.5px solid #10b981;
+  text-shadow: 0 0 8px rgba(110, 231, 183, 0.6);
+}
+
+.tech-tag.mint-tag {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.tape-racing-stripe .stripe-bar.stripe-emerald {
+  background: #059669;
+}
+
+.tape-racing-stripe .stripe-bar.stripe-mint {
+  background: #34d399;
+}
+
+.tape-trapezoid-chin.emerald-chin {
+  background: #064e3b;
+  border: 1px solid #059669;
+}
+
+/* Tape D Status Banner */
+.tape-d-status-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1.5px solid #10b981;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+}
+
+.tape-d-status-banner.status-approved {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: #10b981;
+}
+
+.tape-d-status-banner.status-approved .status-banner-badge {
+  color: #047857;
+  font-weight: 800;
+}
+
+.tape-d-status-banner.status-pending {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: #f59e0b;
+}
+
+.tape-d-status-banner.status-pending .status-banner-badge {
+  color: #b45309;
+}
+
+.tape-d-status-banner.status-rejected {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: #ef4444;
+}
+
+.tape-d-status-banner.status-rejected .status-banner-badge {
+  color: #b91c1c;
+}
+
+.tape-d-status-banner .status-banner-badge {
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.tape-d-status-banner .status-banner-content {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.85rem;
+  color: #1f2937;
+  line-height: 1.45;
+}
+
+/* Tape D Verified School Record Card */
+.verified-school-card {
+  background: #ffffff;
+  border: 1.5px solid #10b981;
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.verified-school-card.alumni-mode-card {
+  border-color: #3b82f6;
+  background: #f8fafc;
+}
+
+.verified-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.verified-school-icon {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  background: #10b981;
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.alumni-mode-card .verified-school-icon {
+  background: #3b82f6;
+}
+
+.verified-school-title {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #065f46;
+  flex: 1;
+}
+
+.alumni-mode-card .verified-school-title {
+  color: #1e40af;
+}
+
+.verified-school-badge {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #059669;
+  background: #ecfdf5;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #a7f3d0;
+}
+
+.alumni-mode-card .verified-school-badge {
+  color: #2563eb;
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.verified-grid-fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 14px;
+}
+
+@media (max-width: 580px) {
+  .verified-grid-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.verified-field-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vf-label {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.72rem;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.vf-value {
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #111827;
+  word-break: break-word;
+}
+
+.vf-value.highlight-name {
+  color: #047857;
+  font-size: 1rem;
+}
+
+.verified-note-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  background: #f0fdf4;
+  border: 1px dashed #6ee7b7;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.74rem;
+  color: #065f46;
+  line-height: 1.4;
+}
+
+.vn-icon {
+  font-weight: 800;
+  color: #059669;
+}
+
+/* Tape D Action Buttons */
+.tape-d-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-mint-submit {
+  flex: 1;
+  min-width: 200px;
+  background: #047857 !important;
+  color: #ffffff !important;
+  border-color: #065f46 !important;
+}
+
+.btn-mint-submit:hover {
+  background: #059669 !important;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4) !important;
+}
+
+.btn-logout-action {
+  background: #991b1b !important;
+  color: #fee2e2 !important;
+  border-color: #7f1d1d !important;
+}
+
+.btn-logout-action:hover {
+  background: #b91c1c !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(185, 28, 28, 0.4) !important;
+}
+
+/* ==========================================================================
+   7-ELEVEN STYLE CONVENIENCE STORE THERMAL RECEIPT MODAL
+   (ป๊อปอัปสไตล์ใบเสร็จรับเงินร้านสะดวกซื้อ กระดาษความร้อนสีอุ่น ขอบฟันปลา ตัวหนังสือตรงกลาง)
+   ========================================================================== */
+.retro-notice-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: rgba(10, 12, 16, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 14px;
+  opacity: 0;
+  transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.retro-notice-backdrop.active {
+  display: flex;
+  opacity: 1;
+}
+
+/* Authentic Thermal Paper Slip */
+.receipt-paper-slip {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background-color: #faf8f2;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.012) 2px,
+    rgba(0, 0, 0, 0.012) 4px
+  );
+  color: #1c1b18;
+  border-radius: 2px;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.6),
+    0 5px 20px rgba(0, 0, 0, 0.25),
+    inset 0 0 40px rgba(245, 240, 225, 0.4);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-30px) scale(0.95);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  margin: 12px 0;
+}
+
+.retro-notice-backdrop.active .receipt-paper-slip {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  animation: receiptFeedDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes receiptFeedDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-35px) scale(0.95);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(4px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Serrated Sawtooth Cutter Edges (รอยฉีกฟันปลาหัว-ท้ายใบเสร็จ) */
+.receipt-sawtooth-cut {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.receipt-sawtooth-top {
+  top: -8px;
+}
+
+.receipt-sawtooth-bottom {
+  bottom: -8px;
+}
+
+.sawtooth-svg {
+  display: block;
+  width: 100%;
+  height: 8px;
+}
+
+/* Receipt Header Zone */
+.receipt-header-zone {
+  padding: 16px 18px 4px 18px;
+  text-align: center;
+}
+
+.receipt-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.receipt-brand-mono {
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #292524;
+  letter-spacing: -0.01em;
+  text-align: left;
+  line-height: 1.35;
+}
+
+.receipt-pin-close {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #f5f5f4;
+  border: 1px dashed #a8a29e;
+  color: #78716c;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s ease;
+  padding: 0;
+}
+
+.receipt-pin-close:hover {
+  background: #e7e5e4;
+  color: #1c1917;
+  border-style: solid;
+  transform: rotate(90deg);
+}
+
+.receipt-meta-mono {
+  font-family: 'Space Grotesk', 'Courier New', monospace;
+  font-size: 0.72rem;
+  color: #44403c;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.receipt-category-title {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #1c1917;
+  margin-top: 5px;
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+
+/* Dotted Divider Rules */
+.receipt-dotted-rule {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #a8a29e;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  letter-spacing: 2px;
+  user-select: none;
+  line-height: 1;
+  margin: 5px 0;
+  opacity: 0.8;
+}
+
+/* Meta Info Row */
+.receipt-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 18px;
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.72rem;
+  color: #44403c;
+}
+
+.receipt-ref-code {
+  letter-spacing: 0.02em;
+}
+
+.receipt-timestamp {
+  font-weight: 600;
+}
+
+.receipt-helpline-center {
+  text-align: center;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #292524;
+  margin: 4px 0 5px 0;
+  letter-spacing: 0.01em;
+}
+
+/* Central Content & Quote Card */
+.receipt-body-center {
+  padding: 8px 18px 10px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.receipt-stamp-container {
+  margin-bottom: 8px;
+}
+
+/* Rubber Stamp Mark (เหมือนตราประทับหมึกบนใบเสร็จ) */
+.receipt-ink-stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 12px;
+  border: 2px solid #0369a1;
+  border-radius: 4px;
+  transform: rotate(-3deg);
+  transition: all 0.25s ease;
+  background: rgba(3, 105, 161, 0.06);
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+}
+
+.stamp-border-inner {
+  display: inline-flex;
+  align-items: center;
+  border: 1px dashed currentColor;
+  padding: 3px 10px;
+  border-radius: 2px;
+}
+
+.stamp-text-badge {
+  font-family: 'Space Grotesk', 'IBM Plex Sans Thai', 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: inherit;
+  white-space: nowrap;
+}
+
+/* Stamp Color Themes */
+.receipt-ink-stamp.type-info {
+  border-color: #0369a1;
+  color: #0369a1;
+  background: rgba(3, 105, 161, 0.07);
+}
+
+.receipt-ink-stamp.type-success,
+.receipt-ink-stamp.type-pass {
+  border-color: #15803d;
+  color: #15803d;
+  background: rgba(21, 128, 61, 0.07);
+  transform: rotate(2.5deg);
+}
+
+.receipt-ink-stamp.type-warning {
+  border-color: #b45309;
+  color: #b45309;
+  background: rgba(180, 83, 9, 0.07);
+  transform: rotate(-2deg);
+}
+
+.receipt-ink-stamp.type-error,
+.receipt-ink-stamp.type-rejected {
+  border-color: #b91c1c;
+  color: #b91c1c;
+  background: rgba(185, 28, 28, 0.07);
+  transform: rotate(-3.5deg);
+}
+
+.receipt-ink-stamp.type-confirm {
+  border-color: #4338ca;
+  color: #4338ca;
+  background: rgba(67, 56, 202, 0.07);
+  transform: rotate(1.5deg);
+}
+
+.receipt-status-headline {
+  font-family: 'Pridi', 'IBM Plex Sans Thai', serif;
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #1c1b18;
+  line-height: 1.35;
+  margin: 4px 0 8px 0;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* Quote Card with Floral Flourishes (เหมือนข้อคิดคำคมในใบเสร็จ 7-Eleven) */
+.receipt-quote-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 4px 6px;
+}
+
+.receipt-flourish-top,
+.receipt-flourish-bottom {
+  color: #78716c;
+  opacity: 0.6;
+  margin: 2px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.flourish-svg {
+  width: 80px;
+  height: 10px;
+}
+
+.receipt-message-text {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #1c1917;
+  line-height: 1.65;
+  white-space: pre-line;
+  word-break: break-word;
+  padding: 6px 8px;
+  text-align: center;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.receipt-quote-source {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.74rem;
+  color: #78716c;
+  margin-top: 4px;
+  text-align: center;
+}
+
+/* Barcode Section */
+.receipt-barcode-zone {
+  padding: 8px 18px 4px 18px;
+  text-align: center;
+}
+
+.receipt-barcode-bars {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  height: 36px;
+  gap: 2px;
+  margin: 0 auto;
+  max-width: 260px;
+}
+
+.receipt-barcode-bars span {
+  background: #1c1b18;
+  border-radius: 0.5px;
+  flex-grow: 1;
+}
+
+.receipt-barcode-bars span:nth-child(2n) {
+  flex-grow: 2;
+}
+
+.receipt-barcode-bars span:nth-child(3n) {
+  background: transparent;
+  flex-grow: 1;
+}
+
+.receipt-barcode-bars span:nth-child(5n) {
+  flex-grow: 3;
+}
+
+.receipt-barcode-bars span:nth-child(7n) {
+  background: transparent;
+  flex-grow: 2;
+}
+
+.receipt-barcode-number {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  color: #44403c;
+  letter-spacing: 0.12em;
+  margin-top: 4px;
+  text-align: center;
+}
+
+/* Action Buttons as Perforated Coupon Tabs */
+.receipt-actions-zone {
+  display: flex;
+  gap: 10px;
+  padding: 10px 18px 18px 18px;
+  justify-content: center;
+}
+
+.btn-receipt-action {
+  flex: 1;
+  padding: 11px 16px;
+  border-radius: 6px;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-receipt-cancel {
+  background: transparent;
+  color: #78716c;
+  border: 1.5px dashed #a8a29e;
+}
+
+.btn-receipt-cancel:hover {
+  background: #f5f5f4;
+  color: #1c1917;
+  border-color: #78716c;
+  transform: translateY(-1px);
+}
+
+.btn-receipt-cancel:active {
+  transform: translateY(1px);
+}
+
+.btn-receipt-confirm {
+  background: #1c1b18;
+  color: #faf8f2;
+  border: 1.5px solid #1c1b18;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-receipt-confirm:hover {
+  background: #292524;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.28);
+}
+
+.btn-receipt-confirm:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 480px) {
+  .receipt-paper-slip {
+    max-width: 95%;
+  }
+  .receipt-header-zone {
+    padding: 14px 14px 4px 14px;
+  }
+  .receipt-meta-row {
+    padding: 2px 14px;
+    font-size: 0.68rem;
+  }
+  .receipt-body-center {
+    padding: 6px 14px 8px 14px;
+  }
+  .receipt-status-headline {
+    font-size: 1.15rem;
+  }
+  .receipt-message-text {
+    font-size: 0.92rem;
+  }
+  .receipt-actions-zone {
+    padding: 8px 14px 16px 14px;
+  }
+}
+
+

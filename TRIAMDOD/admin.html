@@ -14,6 +14,7 @@
 
   <!-- Project Master Stylesheet & Admin Specific Overrides -->
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/cassette-modal.css">
   <link rel="stylesheet" href="css/admin.css">
 </head>
 <body class="admin-body">
@@ -427,6 +428,105 @@
           <button type="button" class="btn-action btn-action-reject" id="btnConfirmReject" style="padding: 9px 18px;">ยืนยันการปฏิเสธ</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- 7-ELEVEN STYLE CONVENIENCE STORE THERMAL RECEIPT MODAL -->
+  <div class="retro-notice-backdrop" id="retroNoticeModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="retro-notice-card receipt-paper-slip" id="retroNoticeCard" data-notice-type="info">
+      
+      <!-- Top Sawtooth Cutter Edge (รอยฉีกฟันปลาหัวใบเสร็จ) -->
+      <div class="receipt-sawtooth-cut receipt-sawtooth-top" aria-hidden="true">
+        <svg viewBox="0 0 400 8" preserveAspectRatio="none" class="sawtooth-svg">
+          <path d="M 0 8 L 10 0 L 20 8 L 30 0 L 40 8 L 50 0 L 60 8 L 70 0 L 80 8 L 90 0 L 100 8 L 110 0 L 120 8 L 130 0 L 140 8 L 150 0 L 160 8 L 170 0 L 180 8 L 190 0 L 200 8 L 210 0 L 220 8 L 230 0 L 240 8 L 250 0 L 260 8 L 270 0 L 280 8 L 290 0 L 300 8 L 310 0 L 320 8 L 330 0 L 340 8 L 350 0 L 360 8 L 370 0 L 380 8 L 390 0 L 400 8 Z" fill="#faf8f2"/>
+        </svg>
+      </div>
+
+      <!-- Receipt Header Zone (เหมือนหัวใบเสร็จร้านสะดวกซื้อ) -->
+      <div class="receipt-header-zone">
+        <div class="receipt-header-top">
+          <span class="receipt-brand-mono">สภานักเรียน, TRIAMDOD 10 สาขา 1 (TUN) (01322)</span>
+          <button class="receipt-pin-close" id="retroNoticeCloseX" type="button" aria-label="ปิดใบเสร็จ">&times;</button>
+        </div>
+        <div class="receipt-meta-mono">TAX#0107542000011 (VAT Included)</div>
+        <div class="receipt-meta-mono">Vat Code 00483 POS#777777777777</div>
+        <div class="receipt-category-title" id="retroNoticeBadge">ระบบจัดการหลังบ้าน • สภานักเรียน</div>
+      </div>
+
+      <!-- Dotted Line -->
+      <div class="receipt-dotted-rule" aria-hidden="true">....................................................................</div>
+
+      <!-- Meta Info Row -->
+      <div class="receipt-meta-row">
+        <span class="receipt-ref-code">R#0000000037P1 :0555501</span>
+        <span class="receipt-timestamp" id="receiptTimestamp">18/10/69 11:28</span>
+      </div>
+      <div class="receipt-helpline-center">** คณะกรรมการสภานักเรียน **</div>
+
+      <!-- Dotted Line -->
+      <div class="receipt-dotted-rule" aria-hidden="true">....................................................................</div>
+
+      <!-- Central Content & Message (เลียนแบบส่วน Quote / ข้อคิดท้ายใบเสร็จ 7-Eleven) -->
+      <div class="receipt-body-center">
+        <!-- Stamp Mark Emblem -->
+        <div class="receipt-stamp-container">
+          <div class="receipt-ink-stamp type-info" id="retroNoticeIcon">
+            <span class="stamp-border-inner">
+              <span class="stamp-text-badge">[ NOTICE ]</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Headline / Status -->
+        <h3 class="receipt-status-headline" id="retroNoticeTitle">การแจ้งเตือนจากระบบ</h3>
+
+        <!-- Center Quote / Message Box with Floral Vignette Line Art -->
+        <div class="receipt-quote-card">
+          <div class="receipt-flourish-top" aria-hidden="true">
+            <svg class="flourish-svg" viewBox="0 0 100 12" fill="none" stroke="currentColor" stroke-width="1.3">
+              <path d="M10 6 C25 1 35 11 50 6 C65 1 75 11 90 6"></path>
+              <circle cx="50" cy="6" r="2" fill="currentColor"></circle>
+            </svg>
+          </div>
+          <div class="receipt-message-text" id="retroNoticeMessage">ข้อความแจ้งเตือน</div>
+          <div class="receipt-flourish-bottom" aria-hidden="true">
+            <svg class="flourish-svg" viewBox="0 0 100 12" fill="none" stroke="currentColor" stroke-width="1.3">
+              <path d="M10 6 C25 11 35 1 50 6 C65 11 75 1 90 6"></path>
+              <circle cx="50" cy="6" r="2" fill="currentColor"></circle>
+            </svg>
+          </div>
+          <div class="receipt-quote-source">(คณะกรรมการสภานักเรียน ต.อ.น.)</div>
+        </div>
+      </div>
+
+      <!-- Dotted Line -->
+      <div class="receipt-dotted-rule" aria-hidden="true">....................................................................</div>
+
+      <!-- Barcode Section -->
+      <div class="receipt-barcode-zone">
+        <div class="receipt-barcode-bars" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="receipt-barcode-number">* 25784-TUN-TD10-ADMIN *</div>
+      </div>
+
+      <!-- Action Buttons as Perforated Tear-off Tabs -->
+      <div class="receipt-actions-zone">
+        <button type="button" class="btn-receipt-action btn-receipt-cancel" id="retroNoticeCancelBtn" style="display: none;">
+          <span class="btn-r-text">ฉีกทิ้ง // ยกเลิก</span>
+        </button>
+        <button type="button" class="btn-receipt-action btn-receipt-confirm" id="retroNoticeConfirmBtn">
+          <span class="btn-r-text" id="retroNoticeConfirmText">รับทราบ // ตกลง</span>
+        </button>
+      </div>
+
+      <!-- Bottom Sawtooth Cutter Edge (รอยฉีกฟันปลาท้ายใบเสร็จ) -->
+      <div class="receipt-sawtooth-cut receipt-sawtooth-bottom" aria-hidden="true">
+        <svg viewBox="0 0 400 8" preserveAspectRatio="none" class="sawtooth-svg">
+          <path d="M 0 0 L 10 8 L 20 0 L 30 8 L 40 0 L 50 8 L 60 0 L 70 8 L 80 0 L 90 8 L 100 0 L 110 8 L 120 0 L 130 8 L 140 0 L 150 8 L 160 0 L 170 8 L 180 0 L 190 8 L 200 0 L 210 8 L 220 0 L 230 8 L 240 0 L 250 8 L 260 0 L 270 8 L 280 0 L 290 8 L 300 0 L 310 8 L 320 0 L 330 8 L 340 0 L 350 8 L 360 0 L 370 8 L 380 0 L 390 8 L 400 0 Z" fill="#faf8f2"/>
+        </svg>
+      </div>
+
     </div>
   </div>
 
